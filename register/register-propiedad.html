@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PNK Inmobiliaria - Registrar Propiedad</title>
+    <link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+    <header>
+        <h1>PNK Inmobiliaria</h1>
+        <nav>
+            <ul>
+                <li><a href="../index.html">Inicio</a></li>
+                <li><a href="../dashboard.html">Dashboard</a></li>
+                <li><a href="../login.html">Cerrar Sesión</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section>
+            <h2>Registrar Propiedad</h2>
+            <form action="#" method="post">
+                <label for="tipo">Tipo de Propiedad:</label>
+                <select id="tipo" name="tipo" required aria-describedby="tipo-help">
+                    <option value="">Selecciona</option>
+                    <option value="casa">Casa</option>
+                    <option value="departamento">Departamento</option>
+                    <option value="terreno">Terreno</option>
+                </select>
+                <span id="tipo-help" class="sr-only">Selecciona el tipo de propiedad</span>
+
+                <label for="descripcion">Descripción:</label>
+                <textarea id="descripcion" name="descripcion" required aria-describedby="descripcion-help"></textarea>
+                <span id="descripcion-help" class="sr-only">Describe la propiedad</span>
+
+                <label for="dormitorios">Cantidad de Dormitorios:</label>
+                <input type="number" id="dormitorios" name="dormitorios" min="0" required aria-describedby="dormitorios-help">
+                <span id="dormitorios-help" class="sr-only">Ingresa el número de dormitorios</span>
+
+                <label for="banos">Cantidad de Baños:</label>
+                <input type="number" id="banos" name="banos" min="0" required aria-describedby="banos-help">
+                <span id="banos-help" class="sr-only">Ingresa el número de baños</span>
+
+                <label for="area-construida">Área Construida (m²):</label>
+                <input type="number" id="area-construida" name="area-construida" min="0" step="0.01" required aria-describedby="area-construida-help">
+                <span id="area-construida-help" class="sr-only">Ingresa el área construida en metros cuadrados</span>
+
+                <label for="area-terreno">Área Total del Terreno (m²):</label>
+                <input type="number" id="area-terreno" name="area-terreno" min="0" step="0.01" required aria-describedby="area-terreno-help">
+                <span id="area-terreno-help" class="sr-only">Ingresa el área total del terreno en metros cuadrados</span>
+
+                <label for="precio-clp">Precio en $:</label>
+                <input type="number" id="precio-clp" name="precio-clp" min="0" required aria-describedby="precio-clp-help">
+                <span id="precio-clp-help" class="sr-only">Ingresa el precio en pesos chilenos</span>
+
+                <label for="precio-uf">Precio en UF:</label>
+                <input type="number" id="precio-uf" name="precio-uf" min="0" step="0.01" required aria-describedby="precio-uf-help">
+                <span id="precio-uf-help" class="sr-only">Ingresa el precio en Unidades de Fomento</span>
+
+                <label for="fecha-publicacion">Fecha de Publicación:</label>
+                <input type="date" id="fecha-publicacion" name="fecha-publicacion" required aria-describedby="fecha-publicacion-help">
+                <span id="fecha-publicacion-help" class="sr-only">Selecciona la fecha de publicación</span>
+
+                <fieldset>
+                    <legend>Características Adicionales:</legend>
+                    <label><input type="checkbox" name="bodega" value="si"> Bodega</label>
+                    <label><input type="checkbox" name="estacionamiento" value="si"> Estacionamiento</label>
+                    <label><input type="checkbox" name="logia" value="si"> Logia</label>
+                    <label><input type="checkbox" name="cocina-amoblada" value="si"> Cocina Amoblada</label>
+                    <label><input type="checkbox" name="antejardin" value="si"> Antejardín</label>
+                    <label><input type="checkbox" name="patio-trasero" value="si"> Patio Trasero</label>
+                    <label><input type="checkbox" name="piscina" value="si"> Piscina</label>
+                </fieldset>
+
+                <label for="provincia">Provincia:</label>
+                <input type="text" id="provincia" name="provincia" required aria-describedby="provincia-help">
+                <span id="provincia-help" class="sr-only">Ingresa la provincia</span>
+
+                <label for="comuna">Comuna:</label>
+                <input type="text" id="comuna" name="comuna" required aria-describedby="comuna-help">
+                <span id="comuna-help" class="sr-only">Ingresa la comuna</span>
+
+                <label for="sector">Sector:</label>
+                <input type="text" id="sector" name="sector" required aria-describedby="sector-help">
+                <span id="sector-help" class="sr-only">Ingresa el sector</span>
+
+                <label for="fotos">Fotografías (máximo 10):</label>
+                <input type="file" id="fotos" name="fotos" accept="image/*" multiple required aria-describedby="fotos-help">
+                <span id="fotos-help" class="sr-only">Sube hasta 10 fotografías de la propiedad</span>
+
+                <label><input type="checkbox" name="solicitar-visita" value="si"> Permitir Solicitar Visita</label>
+
+                <button type="submit">Registrar Propiedad</button>
+            </form>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 PNK Inmobiliaria. Todos los derechos reservados.</p>
+    </footer>
+</body>
+</html>
