@@ -1,51 +1,100 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Dashboard de administrador para gestionar usuarios, propiedades y publicaciones en PNK Inmobiliaria">
     <title>PNK Inmobiliaria - Dashboard Administrador</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
     <link rel="stylesheet" href="../styles.css">
+    <style>
+        body {
+            background-color: #ffffff;
+            color: #000000;
+        }
+
+        .dashboard {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 25px;
+            margin-top: 20px;
+        }
+
+        .card {
+            background-color: #ffffff;
+            border: 1px solid #9e3c3c;
+            border-radius: 8px;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 10px 15px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .card h3 {
+            margin-bottom: 15px;
+        }
+
+        .card a,
+        .card button {
+            display: inline-block;
+            padding: 10px 20px;
+            color: #ffffff;
+            background-color: #0044ff;
+            border: none;
+            border-radius: 4px;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .card a:hover,
+        .card button:hover {
+            background-color: #0056b3;
+        }
+    </style>
 </head>
+
 <body>
     <header>
         <h1>PNK Inmobiliaria</h1>
         <nav>
             <ul>
                 <li><a href="../index.html">Inicio</a></li>
-                <li><a href="dashboard-admin.html">Dashboard</a></li>
+                <li><a href="dashboard-admin.html" aria-current="page">Dashboard</a></li>
                 <li><a href="../login.html">Cerrar Sesión</a></li>
             </ul>
         </nav>
     </header>
 
-    <main>
+    <main role="main">
         <section>
-            <h2>Dashboard Administrador</h2>
-            <div class="dashboard">
-                <div class="card">
-                    <h3>Ingresar Dueño de Inmueble</h3>
+            <h2 style="color: black;">Administración General</h2>
+            <div class="dashboard" role="region" aria-labelledby="dashboard-title">
+                <article class="card">
+                    <h5>Ingresar Dueño de Inmueble</h5>
                     <a href="../register/register-propietario.html">Registrar Propietario</a>
-                </div>
-                <div class="card">
-                    <h3>Habilitar Gestor Inmobiliario</h3>
+                </article>
+                <article class="card">
+                    <h5>Habilitar Gestor Inmobiliario</h5>
                     <a href="../register/register-gestor.html">Registrar Gestor</a>
-                </div>
-                <div class="card">
-                    <h3>Gestionar Usuarios</h3>
-                    <a href="#">Ver Usuarios</a>
-                </div>
-                <div class="card">
-                    <h3>Administrar Publicaciones</h3>
-                    <a href="#">Ver Publicaciones</a>
-                </div>
-                <div class="card">
-                    <h3>Registrar Propiedad</h3>
+                </article>
+                <article class="card">
+                    <h5>Gestionar Usuarios</h5>
+                    <button type="button" onclick="alert('Funcionalidad en desarrollo')">Ver Usuarios</button">
+                </article>
+                <article class="card">
+                    <h5>Administrar Publicaciones</h5>
+                    <button type="button" onclick="alert('Funcionalidad en desarrollo')">Ver Publicaciones</button>
+                </article>
+                <article class="card">
+                    <h5>Registrar Propiedad</h5>
                     <a href="../register/register-propiedad.html">Ir a Registrar</a>
-                </div>
-                <div class="card">
-                    <h3>Gestionar Propiedades</h3>
-                    <a href="#">Ver Propiedades</a>
-                </div>
+                </article>
+                <article class="card">
+                    <h5>Gestionar Propiedades</h5>
+                    <button type="button" onclick="alert('Funcionalidad en desarrollo')">Ver Propiedades</button>
+                </article>
             </div>
         </section>
     </main>
@@ -53,5 +102,9 @@
     <footer>
         <p>&copy; 2026 PNK Inmobiliaria. Todos los derechos reservados.</p>
     </footer>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+        crossorigin="anonymous"></script>
 </body>
+
 </html>
