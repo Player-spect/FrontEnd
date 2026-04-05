@@ -74,6 +74,11 @@
                     <label><input type="checkbox" name="piscina" value="si"> Piscina</label>
                 </fieldset>
 
+                <fieldset>
+                    <legend>Configuración:</legend>
+                    <label><input type="checkbox" name="solicitar-visita" value="si"> Permitir Solicitar Visita</label>
+                </fieldset>
+
                 <label for="provincia">Provincia:</label>
                 <input type="text" id="provincia" name="provincia" required aria-describedby="provincia-help">
                 <span id="provincia-help" class="sr-only">Ingresa la provincia</span>
@@ -89,8 +94,6 @@
                 <label for="fotos">Fotografías (máximo 10):</label>
                 <input type="file" id="fotos" name="fotos" accept="image/*" multiple required aria-describedby="fotos-help">
                 <span id="fotos-help" class="sr-only">Sube hasta 10 fotografías de la propiedad</span>
-
-                <label><input type="checkbox" name="solicitar-visita" value="si"> Permitir Solicitar Visita</label>
 
                 <button type="submit">Registrar Propiedad</button>
             </form>
