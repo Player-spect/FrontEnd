@@ -280,3 +280,4 @@ footer {
 
 .input_dashboard:checked ~ .ul-dashboard {
     display: block;
+}
