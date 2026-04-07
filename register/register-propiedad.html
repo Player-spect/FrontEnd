@@ -12,101 +12,187 @@
     <link rel="stylesheet" href="../styles.css">
 </head>
 <body>
-    <header>
-        <h1>PNK Inmobiliaria</h1>
-        <nav>
-            <ul>
-                <li><a href="../index.html">Inicio</a></li>
-                <li><a href="../dashboard.html">Dashboard</a></li>
-                <li><a href="../login.html">Cerrar Sesión</a></li>
-            </ul>
-        </nav>
-    </header>
+<a href="#main-content" class="skip-link">Saltar al contenido principal</a>
 
-    <main>
-        <section>
-            <h2>Registrar Propiedad</h2>
-            <form action="#" method="post">
-                <label for="tipo">Tipo de Propiedad:</label>
-                <select id="tipo" name="tipo" required aria-describedby="tipo-help">
-                    <option value="">Selecciona</option>
-                    <option value="casa">Casa</option>
-                    <option value="departamento">Departamento</option>
-                    <option value="terreno">Terreno</option>
-                </select>
-                <span id="tipo-help" class="sr-only">Selecciona el tipo de propiedad</span>
+<header role="banner">
+    <h1>PNK Inmobiliaria</h1>
+    <nav aria-label="Navegación principal">
+        <ul>
+            <li><a href="../index.html">Inicio</a></li>
+            <li><a href="../dashboard.html">Dashboard</a></li>
+            <li><a href="../login.html">Cerrar Sesión</a></li>
+        </ul>
+    </nav>
+</header>
 
-                <label for="descripcion">Descripción:</label>
-                <textarea id="descripcion" name="descripcion" required aria-describedby="descripcion-help"></textarea>
-                <span id="descripcion-help" class="sr-only">Describe la propiedad</span>
+<main id="main-content" role="main">
+    <section aria-labelledby="form-heading">
+        <h2 id="form-heading">Registrar Propiedad</h2>
 
-                <label for="dormitorios">Cantidad de Dormitorios:</label>
-                <input type="number" id="dormitorios" name="dormitorios" min="0" required aria-describedby="dormitorios-help">
-                <span id="dormitorios-help" class="sr-only">Ingresa el número de dormitorios</span>
+        <div id="form-messages" role="alert" aria-live="assertive" aria-atomic="true" class="sr-only"></div>
 
-                <label for="banos">Cantidad de Baños:</label>
-                <input type="number" id="banos" name="banos" min="0" required aria-describedby="banos-help">
-                <span id="banos-help" class="sr-only">Ingresa el número de baños</span>
+        <form id="register-propiedad-form" action="#" method="post" novalidate
+              aria-labelledby="form-heading">
+            <p class="sr-only">Los campos marcados con * son obligatorios.</p>
 
-                <label for="area-construida">Área Construida (m²):</label>
-                <input type="number" id="area-construida" name="area-construida" min="0" step="0.01" required aria-describedby="area-construida-help">
-                <span id="area-construida-help" class="sr-only">Ingresa el área construida en metros cuadrados</span>
+            <!-- Tipo de propiedad -->
+            <label for="tipo">Tipo de Propiedad: <span aria-hidden="true">*</span></label>
+            <select id="tipo" name="tipo" required
+                    aria-required="true"
+                    aria-describedby="tipo-help">
+                <option value="">Selecciona una opción</option>
+                <option value="casa">Casa</option>
+                <option value="departamento">Departamento</option>
+                <option value="terreno">Terreno</option>
+            </select>
+            <span id="tipo-help" class="sr-only">Selecciona el tipo de propiedad que deseas registrar</span>
 
-                <label for="area-terreno">Área Total del Terreno (m²):</label>
-                <input type="number" id="area-terreno" name="area-terreno" min="0" step="0.01" required aria-describedby="area-terreno-help">
-                <span id="area-terreno-help" class="sr-only">Ingresa el área total del terreno en metros cuadrados</span>
+            <!-- Descripción -->
+            <label for="descripcion">Descripción: <span aria-hidden="true">*</span></label>
+            <textarea id="descripcion" name="descripcion" required
+                      aria-required="true"
+                      aria-describedby="descripcion-help"
+                      rows="5"></textarea>
+            <span id="descripcion-help" class="sr-only">Describe la propiedad con detalle: características, estado, entorno y cualquier información relevante para los interesados</span>
 
-                <label for="precio-clp">Precio en $:</label>
-                <input type="number" id="precio-clp" name="precio-clp" min="0" required aria-describedby="precio-clp-help">
-                <span id="precio-clp-help" class="sr-only">Ingresa el precio en pesos chilenos</span>
+            <!-- Dormitorios y baños -->
+            <label for="dormitorios">Cantidad de Dormitorios: <span aria-hidden="true">*</span></label>
+            <input type="number" id="dormitorios" name="dormitorios"
+                   min="0" max="20" required
+                   aria-required="true"
+                   aria-describedby="dormitorios-help"
+                   inputmode="numeric">
+            <span id="dormitorios-help" class="sr-only">Ingresa el número de dormitorios. Mínimo 0.</span>
 
-                <label for="precio-uf">Precio en UF:</label>
-                <input type="number" id="precio-uf" name="precio-uf" min="0" step="0.01" required aria-describedby="precio-uf-help">
-                <span id="precio-uf-help" class="sr-only">Ingresa el precio en Unidades de Fomento</span>
+            <label for="banos">Cantidad de Baños: <span aria-hidden="true">*</span></label>
+            <input type="number" id="banos" name="banos"
+                   min="0" max="20" required
+                   aria-required="true"
+                   aria-describedby="banos-help"
+                   inputmode="numeric">
+            <span id="banos-help" class="sr-only">Ingresa el número de baños. Mínimo 0.</span>
 
-                <label for="fecha-publicacion">Fecha de Publicación:</label>
-                <input type="date" id="fecha-publicacion" name="fecha-publicacion" required aria-describedby="fecha-publicacion-help">
-                <span id="fecha-publicacion-help" class="sr-only">Selecciona la fecha de publicación</span>
+            <!-- Áreas -->
+            <label for="area-construida">Área Construida (m²): <span aria-hidden="true">*</span></label>
+            <input type="number" id="area-construida" name="area-construida"
+                   min="0" step="0.01" required
+                   aria-required="true"
+                   aria-describedby="area-construida-help"
+                   inputmode="decimal">
+            <span id="area-construida-help" class="sr-only">Ingresa el área construida en metros cuadrados</span>
 
-                <fieldset>
-                    <legend>Características Adicionales:</legend>
-                    <label><input type="checkbox" name="bodega" value="si"> Bodega</label>
-                    <label><input type="checkbox" name="estacionamiento" value="si"> Estacionamiento</label>
-                    <label><input type="checkbox" name="logia" value="si"> Logia</label>
-                    <label><input type="checkbox" name="cocina-amoblada" value="si"> Cocina Amoblada</label>
-                    <label><input type="checkbox" name="antejardin" value="si"> Antejardín</label>
-                    <label><input type="checkbox" name="patio-trasero" value="si"> Patio Trasero</label>
-                    <label><input type="checkbox" name="piscina" value="si"> Piscina</label>
-                </fieldset>
+            <label for="area-terreno">Área Total del Terreno (m²): <span aria-hidden="true">*</span></label>
+            <input type="number" id="area-terreno" name="area-terreno"
+                   min="0" step="0.01" required
+                   aria-required="true"
+                   aria-describedby="area-terreno-help"
+                   inputmode="decimal">
+            <span id="area-terreno-help" class="sr-only">Ingresa el área total del terreno en metros cuadrados</span>
 
-                <fieldset>
-                    <legend>Configuración:</legend>
-                    <label><input type="checkbox" name="solicitar-visita" value="si"> Permitir Solicitar Visita</label>
-                </fieldset>
+            <!-- Precios -->
+            <label for="precio-clp">Precio en $ (CLP): <span aria-hidden="true">*</span></label>
+            <input type="number" id="precio-clp" name="precio-clp"
+                   min="0" required
+                   aria-required="true"
+                   aria-describedby="precio-clp-help"
+                   inputmode="numeric">
+            <span id="precio-clp-help" class="sr-only">Ingresa el precio en pesos chilenos</span>
 
-                <label for="provincia">Provincia:</label>
-                <input type="text" id="provincia" name="provincia" required aria-describedby="provincia-help">
-                <span id="provincia-help" class="sr-only">Ingresa la provincia</span>
+            <label for="precio-uf">Precio en UF: <span aria-hidden="true">*</span></label>
+            <input type="number" id="precio-uf" name="precio-uf"
+                   min="0" step="0.01" required
+                   aria-required="true"
+                   aria-describedby="precio-uf-help"
+                   inputmode="decimal">
+            <span id="precio-uf-help" class="sr-only">Ingresa el precio en Unidades de Fomento (UF)</span>
 
-                <label for="comuna">Comuna:</label>
-                <input type="text" id="comuna" name="comuna" required aria-describedby="comuna-help">
-                <span id="comuna-help" class="sr-only">Ingresa la comuna</span>
+            <!-- Fecha -->
+            <label for="fecha-publicacion">Fecha de Publicación: <span aria-hidden="true">*</span></label>
+            <input type="date" id="fecha-publicacion" name="fecha-publicacion" required
+                   aria-required="true"
+                   aria-describedby="fecha-publicacion-help">
+            <span id="fecha-publicacion-help" class="sr-only">Selecciona la fecha en que se publicará la propiedad</span>
 
-                <label for="sector">Sector:</label>
-                <input type="text" id="sector" name="sector" required aria-describedby="sector-help">
-                <span id="sector-help" class="sr-only">Ingresa el sector</span>
+            <!-- Características adicionales -->
+            <fieldset>
+                <legend>Características Adicionales</legend>
+                <label>
+                    <input type="checkbox" name="bodega" value="si">
+                    Bodega
+                </label>
+                <label>
+                    <input type="checkbox" name="estacionamiento" value="si">
+                    Estacionamiento
+                </label>
+                <label>
+                    <input type="checkbox" name="logia" value="si">
+                    Logia
+                </label>
+                <label>
+                    <input type="checkbox" name="cocina-amoblada" value="si">
+                    Cocina Amoblada
+                </label>
+                <label>
+                    <input type="checkbox" name="antejardin" value="si">
+                    Antejardín
+                </label>
+                <label>
+                    <input type="checkbox" name="patio-trasero" value="si">
+                    Patio Trasero
+                </label>
+                <label>
+                    <input type="checkbox" name="piscina" value="si">
+                    Piscina
+                </label>
+            </fieldset>
 
-                <label for="fotos">Fotografías (máximo 10):</label>
-                <input type="file" id="fotos" name="fotos" accept="image/*" multiple required aria-describedby="fotos-help">
-                <span id="fotos-help" class="sr-only">Sube hasta 10 fotografías de la propiedad</span>
+            <!-- Configuración -->
+            <fieldset>
+                <legend>Configuración de la Publicación</legend>
+                <label>
+                    <input type="checkbox" name="solicitar-visita" value="si">
+                    Permitir que los interesados soliciten visita
+                </label>
+            </fieldset>
 
-                <button type="submit">Registrar Propiedad</button>
-            </form>
-        </section>
-    </main>
+            <!-- Ubicación -->
+            <label for="provincia">Provincia: <span aria-hidden="true">*</span></label>
+            <input type="text" id="provincia" name="provincia" required
+                   autocomplete="address-level2"
+                   aria-required="true"
+                   aria-describedby="provincia-help">
+            <span id="provincia-help" class="sr-only">Ingresa la provincia donde se ubica la propiedad</span>
 
-    <footer>
-        <p>&copy; 2026 PNK Inmobiliaria. Todos los derechos reservados.</p>
-    </footer>
+            <label for="comuna">Comuna: <span aria-hidden="true">*</span></label>
+            <input type="text" id="comuna" name="comuna" required
+                   autocomplete="address-level3"
+                   aria-required="true"
+                   aria-describedby="comuna-help">
+            <span id="comuna-help" class="sr-only">Ingresa la comuna donde se ubica la propiedad</span>
+
+            <label for="sector">Sector: <span aria-hidden="true">*</span></label>
+            <input type="text" id="sector" name="sector" required
+                   aria-required="true"
+                   aria-describedby="sector-help">
+            <span id="sector-help" class="sr-only">Ingresa el sector o barrio donde se ubica la propiedad</span>
+
+            <!-- Fotos -->
+            <label for="fotos">
+                Fotografías: <span aria-hidden="true">*</span>
+            </label>
+            <input type="file" id="fotos" name="fotos"
+                   accept="image/*" multiple required
+                   aria-required="true"
+                   aria-describedby="fotos-help">
+            <span id="fotos-help" class="sr-only">Sube hasta 10 fotografías de la propiedad en formato JPG, PNG o WEBP. Tamaño máximo por imagen: 5 MB.</span>
+
+            <button type="submit">Registrar Propiedad</button>
+        </form>
+    </section>
+</main>
+
+<footer role="contentinfo">
+    <p>&copy; 2026 PNK Inmobiliaria. Todos los derechos reservados.</p>
+</footer>
 </body>
 </html>

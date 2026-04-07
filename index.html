@@ -17,59 +17,71 @@
     <link rel="canonical" href="https://www.pnk-inmobiliaria.cl/">
     <link rel="stylesheet" href="styles.css">
     <script type="application/ld+json">
-    {
-        "@context": "https://schema.org",
-        "@type": "RealEstateAgent",
-        "name": "PNK Inmobiliaria",
-        "description": "Plataforma para publicar y gestionar propiedades inmobiliarias en la Región de Coquimbo.",
-        "url": "https://www.pnk-inmobiliaria.cl/",
-        "address": {
-            "@type": "PostalAddress",
-            "addressRegion": "Coquimbo",
-            "addressCountry": "CL"
-        },
-        "telephone": "+56-51-123-4567"
-    }
+        {
+            "@context": "https://schema.org",
+            "@type": "RealEstateAgent",
+            "name": "PNK Inmobiliaria",
+            "description": "Plataforma para publicar y gestionar propiedades inmobiliarias en la Región de Coquimbo.",
+            "url": "https://www.pnk-inmobiliaria.cl/",
+            "address": {
+                "@type": "PostalAddress",
+                "addressRegion": "Coquimbo",
+                "addressCountry": "CL"
+            },
+            "telephone": "+56-51-123-4567"
+        }
     </script>
 </head>
 <body>
-    <header>
-        <h1 class="title">PNK Inmobiliaria</h1>
-        <nav>
-            <ul>
-                <li><a href="index.html">Inicio</a></li>
-                <li><a href="login.html">Iniciar Sesión</a></li>
-                <li><a href="register/register-gestor.html">Registrar Gestor</a></li>
-                <li><a href="register/register-propietario.html">Registrar Propietario</a></li>
+<!-- Saltar al contenido principal -->
+<a href="#main-content" class="skip-link">Saltar al contenido principal</a>
 
-                <li class="li-menu-dashboard">
-                    <input type="checkbox" id="btn-dashboard" class="input_dashboard">
-                    <label for="btn-dashboard" class="label_dashboard">Dashboard</label>
-                    <ul class="ul-dashboard">
-                        <li><a href="dashboard/dashboard-admin.html">Dashboard Administrador</a></li>
-                        <li><a href="dashboard/dashboard-gestor.html">Dashboard Gestor Inmobiliario</a></li>
-                        <li><a href="dashboard/dashboard-propietario.html">Dashboard Propietario</a></li>
-                    </ul>
-                </li>
-            </ul>
-        </nav>
-    </header>
+<header role="banner">
+    <h1 class="title">PNK Inmobiliaria</h1>
+    <nav aria-label="Navegación principal">
+        <ul>
+            <li><a href="index.html" aria-current="page">Inicio</a></li>
+            <li><a href="login.html">Iniciar Sesión</a></li>
+            <li><a href="register/register-gestor.html">Registrar Gestor</a></li>
+            <li><a href="register/register-propietario.html">Registrar Propietario</a></li>
 
-    <main>
-        <section>
-            <h2>Bienvenido a PNK Inmobiliaria</h2>
-            <p>Plataforma para publicar y gestionar propiedades inmobiliarias en la Región de Coquimbo.</p>
-            <p>Únete como propietario o gestor inmobiliario y comienza a promocionar propiedades.</p>
-        </section>
+            <li class="li-menu-dashboard">
+                <!-- Accordion accesible con checkbox -->
+                <input type="checkbox" id="btn-dashboard" class="input_dashboard"
+                       aria-controls="menu-dashboard"
+                       aria-expanded="false">
+                <label for="btn-dashboard" class="label_dashboard">
+                    Dashboard
+                    <span class="sr-only">(expandir menú)</span>
+                </label>
+                <ul class="ul-dashboard" id="menu-dashboard" role="menu">
+                    <li role="none"><a href="dashboard/dashboard-admin.html" role="menuitem">Dashboard Administrador</a></li>
+                    <li role="none"><a href="dashboard/dashboard-gestor.html" role="menuitem">Dashboard Gestor Inmobiliario</a></li>
+                    <li role="none"><a href="dashboard/dashboard-propietario.html" role="menuitem">Dashboard Propietario</a></li>
+                </ul>
+            </li>
+        </ul>
+    </nav>
+</header>
 
-        <section>
-            <h3>Propiedades Destacadas</h3>
-            <article>
-                <h4>Casa en La Serena el Milagro </h4>
-                <img src="assets/img/casa-serena.jpg" alt="Casa moderna en venta en La Serena, sector El Milagro, con jardín y estacionamiento">
-                <p>Precio: $154.000.000</p>
-                <a href="login.html">Quiero saber más</a>
-                <script type="application/ld+json">
+<main id="main-content" role="main">
+    <section aria-labelledby="bienvenida-heading">
+        <h2 id="bienvenida-heading">Bienvenido a PNK Inmobiliaria</h2>
+        <p>Plataforma para publicar y gestionar propiedades inmobiliarias en la Región de Coquimbo.</p>
+        <p>Únete como propietario o gestor inmobiliario y comienza a promocionar propiedades.</p>
+    </section>
+
+    <section aria-labelledby="propiedades-heading">
+        <h2 id="propiedades-heading">Propiedades Destacadas</h2>
+        <article aria-labelledby="prop1-heading">
+            <h3 id="prop1-heading">Casa en La Serena, sector El Milagro</h3>
+            <img src="assets/img/casa-serena.jpg"
+                 alt="Casa moderna en venta en La Serena, sector El Milagro, con jardín y estacionamiento"
+                 width="800" height="533"
+                 loading="lazy">
+            <p><strong>Precio:</strong> $154.000.000</p>
+            <a href="login.html">Quiero saber más sobre esta propiedad</a>
+            <script type="application/ld+json">
                 {
                     "@context": "https://schema.org",
                     "@type": "RealEstateListing",
@@ -90,13 +102,23 @@
                     },
                     "propertyType": "Casa"
                 }
-                </script>
-            </article>
-        </section>
-    </main>
+            </script>
+        </article>
+    </section>
+</main>
 
-    <footer>
-        <p>&copy; 2026 PNK Inmobiliaria. Todos los derechos reservados.</p>
-    </footer>
+<footer role="contentinfo">
+    <p>&copy; 2026 PNK Inmobiliaria. Todos los derechos reservados.</p>
+</footer>
+
+<script>
+    // Sincronizar aria-expanded con el estado del checkbox del menú
+    const dashboardCheckbox = document.getElementById('btn-dashboard');
+    if (dashboardCheckbox) {
+        dashboardCheckbox.addEventListener('change', function () {
+            this.setAttribute('aria-expanded', this.checked ? 'true' : 'false');
+        });
+    }
+</script>
 </body>
 </html>

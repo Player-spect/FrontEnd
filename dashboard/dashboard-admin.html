@@ -1,109 +1,93 @@
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description"
-        content="Dashboard de administrador para gestionar usuarios, propiedades y publicaciones en PNK Inmobiliaria">
+    <meta name="description" content="Dashboard de administrador para gestionar usuarios, propiedades y publicaciones en PNK Inmobiliaria">
     <title>PNK Inmobiliaria - Dashboard Administrador</title>
     <meta name="keywords" content="dashboard admin inmobiliaria, gestionar usuarios Coquimbo, panel administrador PNK">
     <meta name="author" content="PNK Inmobiliaria">
     <meta name="robots" content="noindex, nofollow">
     <link rel="canonical" href="https://www.pnk-inmobiliaria.cl/dashboard/dashboard-admin.html">
     <link rel="stylesheet" href="../styles.css">
-    <style>
-        body {
-            background-color: #ffffff;
-            color: #000000;
-        }
-
-        .dashboard {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-            gap: 25px;
-            margin-top: 20px;
-        }
-
-        .card {
-            background-color: #ffffff;
-            border: 1px solid #9e3c3c;
-            border-radius: 8px;
-            padding: 20px;
-            text-align: center;
-            box-shadow: 10px 15px 5px rgba(0, 0, 0, 0.1);
-        }
-
-        .card h3 {
-            margin-bottom: 15px;
-        }
-
-        .card a,
-        .card button {
-            display: inline-block;
-            padding: 10px 20px;
-            color: #ffffff;
-            background-color: #0044ff;
-            border: none;
-            border-radius: 4px;
-            text-decoration: none;
-            cursor: pointer;
-        }
-
-        .card a:hover,
-        .card button:hover {
-            background-color: #0056b3;
-        }
-    </style>
 </head>
-
 <body>
-    <header>
-        <h1>PNK Inmobiliaria</h1>
-        <nav>
-            <ul>
-                <li><a href="../index.html">Inicio</a></li>
-                <li><a href="dashboard-admin.html" aria-current="page">Dashboard</a></li>
-                <li><a href="../login.html">Cerrar Sesión</a></li>
-            </ul>
-        </nav>
-    </header>
+<a href="#main-content" class="skip-link">Saltar al contenido principal</a>
 
-    <main role="main">
-        <section>
-            <h2 id="dashboard-title" style="color: black;">Administración General</h2>
-            <div class="dashboard" role="region" aria-labelledby="dashboard-title">
-                <article class="card">
-                    <h5>Ingresar Dueño de Inmueble</h5>
-                    <a href="../register/register-propietario.html">Registrar Propietario</a>
-                </article>
-                <article class="card">
-                    <h5>Habilitar Gestor Inmobiliario</h5>
-                    <a href="../register/register-gestor.html">Registrar Gestor</a>
-                </article>
-                <article class="card">
-                    <h5>Gestionar Usuarios</h5>
-                    <button type="button" onclick="alert('Funcionalidad en desarrollo')">Ver Usuarios</button>
-                </article>
-                <article class="card">
-                    <h5>Administrar Publicaciones</h5>
-                    <button type="button" onclick="alert('Funcionalidad en desarrollo')">Ver Publicaciones</button>
-                </article>
-                <article class="card">
-                    <h5>Registrar Propiedad</h5>
-                    <a href="../register/register-propiedad.html">Ir a Registrar</a>
-                </article>
-                <article class="card">
-                    <h5>Gestionar Propiedades</h5>
-                    <button type="button" onclick="alert('Funcionalidad en desarrollo')">Ver Propiedades</button>
-                </article>
-            </div>
-        </section>
-    </main>
+<header role="banner">
+    <h1>PNK Inmobiliaria</h1>
+    <nav aria-label="Navegación principal">
+        <ul>
+            <li><a href="../index.html">Inicio</a></li>
+            <li><a href="dashboard-admin.html" aria-current="page">Dashboard</a></li>
+            <li><a href="../login.html">Cerrar Sesión</a></li>
+        </ul>
+    </nav>
+</header>
 
-    <footer>
-        <p>&copy; 2026 PNK Inmobiliaria. Todos los derechos reservados.</p>
-    </footer>
+<main id="main-content" role="main">
+    <section aria-labelledby="dashboard-title">
+        <h2 id="dashboard-title">Administración General</h2>
+
+        <!-- Región de notificaciones -->
+        <div id="admin-messages" role="status" aria-live="polite" aria-atomic="true" class="sr-only"></div>
+
+        <div class="dashboard" role="region" aria-labelledby="dashboard-title">
+            <article class="card">
+                <h3>Ingresar Dueño de Inmueble</h3>
+                <a href="../register/register-propietario.html">Registrar Propietario</a>
+            </article>
+            <article class="card">
+                <h3>Habilitar Gestor Inmobiliario</h3>
+                <a href="../register/register-gestor.html">Registrar Gestor</a>
+            </article>
+            <article class="card">
+                <h3>Gestionar Usuarios</h3>
+                <button type="button"
+                        aria-haspopup="dialog"
+                        onclick="notificar('Funcionalidad en desarrollo')">
+                    Ver Usuarios
+                </button>
+            </article>
+            <article class="card">
+                <h3>Administrar Publicaciones</h3>
+                <button type="button"
+                        aria-haspopup="dialog"
+                        onclick="notificar('Funcionalidad en desarrollo')">
+                    Ver Publicaciones
+                </button>
+            </article>
+            <article class="card">
+                <h3>Registrar Propiedad</h3>
+                <a href="../register/register-propiedad.html">Ir a Registrar</a>
+            </article>
+            <article class="card">
+                <h3>Gestionar Propiedades</h3>
+                <button type="button"
+                        aria-haspopup="dialog"
+                        onclick="notificar('Funcionalidad en desarrollo')">
+                    Ver Propiedades
+                </button>
+            </article>
+        </div>
+    </section>
+</main>
+
+<footer role="contentinfo">
+    <p>&copy; 2026 PNK Inmobiliaria. Todos los derechos reservados.</p>
+</footer>
+
+<script>
+    function notificar(mensaje) {
+        const region = document.getElementById('admin-messages');
+        region.textContent = mensaje;
+        region.classList.remove('sr-only');
+        // Ocultar después de 4 segundos
+        setTimeout(() => {
+            region.textContent = '';
+            region.classList.add('sr-only');
+        }, 4000);
+    }
+</script>
 </body>
-
 </html>
