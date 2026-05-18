@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PNK Inmobiliaria - Registrar Gestor Inmobiliario | Únete como Profesional</title>
-    <meta name="description" content="Regístrate como gestor inmobiliario en PNK Inmobiliaria y comienza a ofrecer propiedades en venta y alquiler en la Región de Coquimbo.">
-    <meta name="keywords" content="registrar gestor inmobiliario, unirse PNK Coquimbo, profesional inmobiliaria La Serena">
+    <title>PNK Inmobiliaria - Registrar Propietario | Publica tus Propiedades</title>
+    <meta name="description" content="Regístrate como propietario en PNK Inmobiliaria y comienza a publicar tus propiedades en venta y alquiler en la Región de Coquimbo.">
+    <meta name="keywords" content="registrar propietario inmobiliaria, publicar propiedades Coquimbo, unirse PNK La Serena">
     <meta name="author" content="PNK Inmobiliaria">
     <meta name="robots" content="index, follow">
-    <link rel="canonical" href="https://www.pnk-inmobiliaria.cl/register/register-gestor.html">
-    <link rel="stylesheet" href="../styles.css">
+    <link rel="canonical" href="https://www.pnk-inmobiliaria.cl/register/register-propietario.html">
+    <link rel="stylesheet" href="../css/styles.css">
 </head>
 <body>
 <a href="#main-content" class="skip-link">Saltar al contenido principal</a>
@@ -18,21 +18,21 @@
     <h1 class="title">PNK Inmobiliaria</h1>
     <nav aria-label="Navegación principal">
         <ul>
-            <li><a href="../index.html">Inicio</a></li>
+            <li><a href="../../index.html">Inicio</a></li>
             <li><a href="../login.html">Iniciar Sesión</a></li>
-            <li><a href="register-gestor.html" aria-current="page">Registrar Gestor</a></li>
-            <li><a href="register-propietario.html">Registrar Propietario</a></li>
+            <li><a href="register-gestor.html">Registrar Gestor</a></li>
+            <li><a href="register-propietario.html" aria-current="page">Registrar Propietario</a></li>
         </ul>
     </nav>
 </header>
 
 <main id="main-content" role="main">
     <section aria-labelledby="form-heading">
-        <h2 id="form-heading">Registrar Gestor Inmobiliario</h2>
+        <h2 id="form-heading">Registrar Propietario</h2>
 
         <div id="form-messages" role="alert" aria-live="assertive" aria-atomic="true" class="sr-only"></div>
 
-        <form id="register-gestor-form" action="#" method="post" novalidate
+        <form id="register-propietario-form" action="#" method="post" novalidate
               aria-labelledby="form-heading">
             <p class="sr-only">Los campos marcados con * son obligatorios.</p>
 
@@ -96,15 +96,14 @@
                    inputmode="tel">
             <span id="telefono-help" class="sr-only">Ingresa tu número de teléfono móvil con código de país. Ejemplo: +56 9 1234 5678</span>
 
-            <label for="certificado">
-                Certificado de Antecedentes: <span aria-hidden="true">*</span>
+            <label for="propiedad">
+                N° de la Propiedad (Registro de Bienes Raíces): <span aria-hidden="true">*</span>
             </label>
-            <input type="file" id="certificado" name="certificado"
-                   accept=".pdf,.jpg,.jpeg,.png"
-                   required
+            <input type="text" id="propiedad" name="propiedad" required
+                   autocomplete="off"
                    aria-required="true"
-                   aria-describedby="certificado-help">
-            <span id="certificado-help" class="sr-only">Sube tu certificado de antecedentes en formato PDF, JPG o PNG. Tamaño máximo: 5 MB.</span>
+                   aria-describedby="propiedad-help">
+            <span id="propiedad-help" class="sr-only">Ingresa el número de registro de tu propiedad en el Conservador de Bienes Raíces</span>
 
             <button type="submit">Registrar</button>
         </form>
