@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Acceso Denegado - PNK Inmobiliaria</title>
+    <meta name="description" content="Acceso denegado por sesión expirada o inválida en PNK Inmobiliaria.">
+    <meta name="author" content="PNK Inmobiliaria">
+    <meta name="robots" content="noindex, nofollow">
+
+    <!-- Vinculación a tu archivo CSS existente -->
+    <link rel="stylesheet" href="css/styles.css">
+
+    <style>
+        /* Estilos específicos y complementarios para centrar la tarjeta de error en la pantalla */
+        .error-wrapper {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 60vh;
+            width: 100%;
+        }
+        .error-card {
+            text-align: center;
+            border-top: 6px solid var(--color-error); /* Refuerzo visual superior con tu color de error */
+        }
+        .error-icon {
+            font-size: 3.5rem;
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+        .btn-error-redirect {
+            text-decoration: none;
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+        }
+    </style>
+</head>
+<body>
+
+<a href="#main-content" class="skip-link">Saltar al contenido principal</a>
+
+<header role="banner">
+    <h1>PNK Inmobiliaria</h1>
+</header>
+
+<main id="main-content" role="main" aria-labelledby="error-heading">
+    <div class="error-wrapper">
+        <!-- Reutilizando tu clase .card para mantener consistencia visual -->
+        <article class="card error-card" max-width="480px">
+            <span class="error-icon" aria-hidden="true">🔒</span>
+
+            <h2 id="error-heading">Acceso Denegado</h2>
+
+            <!-- Reutilizando tu contenedor semántico para alertas -->
+            <div role="alert" aria-live="assertive" aria-atomic="true">
+                Tu sesión ha expirado o no cuentas con los permisos necesarios para visualizar este panel. Por motivos de seguridad, debes autenticarte nuevamente.
+            </div>
+
+            <!-- Reutilizando tus estilos globales para botones/enlaces tipo botón -->
+            <a href="login.html" class="card a btn-error-redirect" role="button">
+                Volver al Inicio de Sesión <span class="sr-only">(requerido para acceder al sistema)</span>
+            </a>
+        </article>
+    </div>
+</main>
+
+<footer role="contentinfo">
+    <p>&copy; 2026 PNK Inmobiliaria. Todos los derechos reservados.</p>
+</footer>
+
+</body>
+</html>
