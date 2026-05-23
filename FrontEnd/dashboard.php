@@ -1,0 +1,58 @@
+<?php require_once '../BackEnd/includes/session_checker.php'; ?>
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PNK Inmobiliaria - Dashboard | Gestiona tus Propiedades</title>
+    <meta name="description" content="Accede a tu dashboard en PNK Inmobiliaria para registrar y gestionar propiedades en venta y alquiler en la Región de Coquimbo.">
+    <meta name="keywords" content="dashboard inmobiliaria, gestionar propiedades Coquimbo, panel de control PNK">
+    <meta name="author" content="PNK Inmobiliaria">
+    <meta name="robots" content="noindex, nofollow">
+    <link rel="canonical" href="https://www.pnk-inmobiliaria.cl/dashboard.html">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+<a href="#main-content" class="skip-link">Saltar al contenido principal</a>
+
+<header role="banner">
+    <h1>PNK Inmobiliaria</h1>
+    <nav aria-label="Navegación principal">
+        <ul>
+            <li><a href="../index.html">Inicio</a></li>
+            <li><a href="dashboard.html" aria-current="page">Dashboard</a></li>
+            <li><a href="login.html">Cerrar Sesión</a></li>
+        </ul>
+    </nav>
+</header>
+
+<main id="main-content" role="main">
+    <section aria-labelledby="dashboard-heading">
+        <h2 id="dashboard-heading">Dashboard</h2>
+        <div class="dashboard" role="region" aria-labelledby="dashboard-heading">
+            <article class="card">
+                <h3>Registrar Propiedad</h3>
+                <a href="register/register-propiedad.html">Ir a Registrar</a>
+            </article>
+            <article class="card">
+                <h3>Gestionar Propiedades</h3>
+                <a href="#" aria-disabled="true">Ver Propiedades</a>
+            </article>
+            <article class="card">
+                <h3>Gestionar Usuarios</h3>
+                <a href="#" aria-disabled="true">Ver Usuarios</a>
+            </article>
+            <article class="card">
+                <h3>Perfil</h3>
+                <a href="#" aria-disabled="true">Editar Perfil</a>
+            </article>
+        </div>
+    </section>
+</main>
+
+<footer role="contentinfo">
+    <p>&copy; 2026 PNK Inmobiliaria. Todos los derechos reservados.</p>
+</footer>
+</body>
+</html>

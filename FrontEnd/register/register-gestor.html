@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PNK Inmobiliaria - Registrar Gestor Inmobiliario | Únete como Profesional</title>
+    <meta name="description" content="Regístrate como gestor inmobiliario en PNK Inmobiliaria y comienza a ofrecer propiedades en venta y alquiler en la Región de Coquimbo.">
+    <meta name="keywords" content="registrar gestor inmobiliario, unirse PNK Coquimbo, profesional inmobiliaria La Serena">
+    <meta name="author" content="PNK Inmobiliaria">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://www.pnk-inmobiliaria.cl/register/register-gestor.html">
+    <link rel="stylesheet" href="../css/styles.css">
+</head>
+<body>
+<a href="#main-content" class="skip-link">Saltar al contenido principal</a>
+
+<header role="banner">
+    <h1 class="title">PNK Inmobiliaria</h1>
+    <nav aria-label="Navegación principal">
+        <ul>
+            <li><a href="../../index.html">Inicio</a></li>
+            <li><a href="../login.html">Iniciar Sesión</a></li>
+            <li><a href="register-gestor.html" aria-current="page">Registrar Gestor</a></li>
+            <li><a href="register-propietario.html">Registrar Propietario</a></li>
+        </ul>
+    </nav>
+</header>
+
+<main id="main-content" role="main">
+    <section aria-labelledby="form-heading">
+        <h2 id="form-heading">Registrar Gestor Inmobiliario</h2>
+
+        <div id="form-messages" role="alert" aria-live="assertive" aria-atomic="true" class="sr-only"></div>
+
+        <form id="register-gestor-form" action="#" method="post" novalidate
+              aria-labelledby="form-heading">
+            <p class="sr-only">Los campos marcados con * son obligatorios.</p>
+
+            <label for="rut">RUT: <span aria-hidden="true">*</span></label>
+            <input type="text" id="rut" name="rut" required
+                   autocomplete="off"
+                   aria-required="true"
+                   aria-describedby="rut-help"
+                   inputmode="numeric"
+                   placeholder="Ej: 12345678-9">
+            <span id="rut-help" class="sr-only">Ingresa tu RUT sin puntos, con guion. Ejemplo: 12345678-9</span>
+
+            <label for="nombre">Nombre Completo: <span aria-hidden="true">*</span></label>
+            <input type="text" id="nombre" name="nombre" required
+                   autocomplete="name"
+                   aria-required="true"
+                   aria-describedby="nombre-help">
+            <span id="nombre-help" class="sr-only">Ingresa tu nombre completo tal como aparece en tu documento de identidad</span>
+
+            <label for="fecha-nacimiento">Fecha de Nacimiento: <span aria-hidden="true">*</span></label>
+            <input type="date" id="fecha-nacimiento" name="fecha-nacimiento" required
+                   autocomplete="bday"
+                   aria-required="true"
+                   aria-describedby="fecha-help">
+            <span id="fecha-help" class="sr-only">Selecciona tu fecha de nacimiento</span>
+
+            <label for="email">Correo Electrónico: <span aria-hidden="true">*</span></label>
+            <input type="email" id="email" name="email" required
+                   autocomplete="email"
+                   aria-required="true"
+                   aria-describedby="email-help"
+                   spellcheck="false">
+            <span id="email-help" class="sr-only">Ingresa un correo electrónico válido. Será tu nombre de usuario.</span>
+
+            <label for="password">Contraseña: <span aria-hidden="true">*</span></label>
+            <input type="password" id="password" name="password" required
+                   autocomplete="new-password"
+                   aria-required="true"
+                   aria-describedby="password-help"
+                   minlength="8">
+            <span id="password-help" class="sr-only">Crea una contraseña segura de al menos 8 caracteres</span>
+
+            <label for="sexo">Sexo: <span aria-hidden="true">*</span></label>
+            <select id="sexo" name="sexo" required
+                    aria-required="true"
+                    aria-describedby="sexo-help">
+                <option value="">Selecciona una opción</option>
+                <option value="masculino">Masculino</option>
+                <option value="femenino">Femenino</option>
+                <option value="otro">Otro</option>
+                <option value="prefiero-no-indicar">Prefiero no indicar</option>
+            </select>
+            <span id="sexo-help" class="sr-only">Selecciona tu sexo</span>
+
+            <label for="telefono">Teléfono Móvil: <span aria-hidden="true">*</span></label>
+            <input type="tel" id="telefono" name="telefono" required
+                   autocomplete="tel"
+                   aria-required="true"
+                   aria-describedby="telefono-help"
+                   placeholder="Ej: +56 9 1234 5678"
+                   inputmode="tel">
+            <span id="telefono-help" class="sr-only">Ingresa tu número de teléfono móvil con código de país. Ejemplo: +56 9 1234 5678</span>
+
+            <label for="certificado">
+                Certificado de Antecedentes: <span aria-hidden="true">*</span>
+            </label>
+            <input type="file" id="certificado" name="certificado"
+                   accept=".pdf,.jpg,.jpeg,.png"
+                   required
+                   aria-required="true"
+                   aria-describedby="certificado-help">
+            <span id="certificado-help" class="sr-only">Sube tu certificado de antecedentes en formato PDF, JPG o PNG. Tamaño máximo: 5 MB.</span>
+
+            <button type="submit">Registrar</button>
+        </form>
+
+        <p>¿Ya tienes cuenta? <a href="../login.html">Inicia Sesión</a></p>
+    </section>
+</main>
+
+<footer role="contentinfo">
+    <p>&copy; 2026 PNK Inmobiliaria. Todos los derechos reservados.</p>
+</footer>
+</body>
+</html>
