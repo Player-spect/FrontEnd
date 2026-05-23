@@ -30,6 +30,22 @@
     <section aria-labelledby="login-heading">
         <h2 id="login-heading">Iniciar Sesión</h2>
 
+        <!-- Vista previa de propiedad cuando viene desde la galería -->
+        <div id="property-preview" class="property-preview hide" aria-live="polite">
+            <img id="property-preview-image" src="" alt="" loading="lazy">
+            <div class="property-preview-content">
+                <h3 class="property-preview-title" id="property-preview-title"></h3>
+                <div class="property-meta">
+                    <span id="property-preview-sector"></span>
+                    <span id="property-preview-price"></span>
+                </div>
+                <p class="property-description" id="property-preview-description"></p>
+                <p class="property-detail-actions">
+                    <a id="continue-link" href="#">Ver detalles y continuar</a>
+                </p>
+            </div>
+        </div>
+
         <!-- Región de mensajes de error/éxito -->
         <div id="form-messages" role="alert" aria-live="assertive" aria-atomic="true" class="sr-only"></div>
 
@@ -71,5 +87,98 @@
 <footer role="contentinfo">
     <p>&copy; 2026 PNK Inmobiliaria. Todos los derechos reservados.</p>
 </footer>
-</body>
-</html>
+
+    <script>
+        const propertyData = {
+            milagro1: {
+                name: 'Casa en La Serena, sector El Milagro I.',
+                sector: 'Sector El Milagro I',
+                price: '$154.000.000',
+                description: 'Casa moderna en venta en La Serena, sector El Milagro. Tiene jardín, estacionamiento y buena distribución interior.',
+                image: '../assets/img/casa-serena.jpg',
+                alt: 'Casa moderna en La Serena, sector El Milagro I'
+            },
+            milagro2: {
+                name: 'Amplia casa en La Serena, sector El Milagro II.',
+                sector: 'Sector El Milagro II',
+                price: '$150.000.000',
+                description: 'Casa espaciosa en La Serena con jardín y estacionamiento, ubicada en un sector tranquilo y bien conectado.',
+                image: '../assets/img/casa2-serena.jpg',
+                alt: 'Casa amplia en La Serena, sector El Milagro II'
+            },
+            penuelas: {
+                name: 'Casa en La Serena, sector Peñuelas.',
+                sector: 'Sector Peñuelas',
+                price: '$162.000.000',
+                description: 'Casa en venta con excelente ubicación y espacios amplios para familia, cercana a servicios y áreas verdes.',
+                image: '../assets/img/casa3-serena.jpg',
+                alt: 'Casa en La Serena, sector Peñuelas'
+            },
+            avenida: {
+                name: 'Casa en La Serena, sector Avenida del Mar.',
+                sector: 'Sector Avenida del Mar',
+                price: '$172.000.000',
+                description: 'Propiedad en Avenida del Mar con buen acceso a la playa y servicios, ideal para quienes quieren vivir cerca del mar.',
+                image: '../assets/img/casa4-serena.jpeg',
+                alt: 'Casa en La Serena, sector Avenida del Mar'
+            },
+            tierrasblancas: {
+                name: 'Amplia casa en La Serena, sector Tierras Blancas.',
+                sector: 'Sector Tierras Blancas',
+                price: '$120.000.000',
+                description: 'Propiedad cómoda en Tierras Blancas con jardín y estacionamiento, perfecta para familias que buscan tranquilidad.',
+                image: '../assets/img/casa5-serena.jpeg',
+                alt: 'Casa en La Serena, sector Tierras Blancas'
+            },
+            puertasdmar: {
+                name: 'Departamento en La Serena, sector Puertas de mar.',
+                sector: 'Sector Puertas de Mar',
+                price: '$50.000.000',
+                description: 'Departamento amplio y bien ubicado, totalmente amoblado y con estacionamiento incluido.',
+                image: '../assets/img/depa-serena.jpg',
+                alt: 'Departamento en La Serena, sector Puertas de Mar'
+            },
+            avdelmar: {
+                name: 'Amplio departamento en La Serena, sector Av del Mar.',
+                sector: 'Sector Av del Mar',
+                price: '$80.000.000',
+                description: 'Departamento con buena distribución e estacionamiento, ideal para parejas o familias pequeñas.',
+                image: '../assets/img/depa2-serena.jpg',
+                alt: 'Departamento en La Serena, sector Avenida del Mar'
+            }
+        };
+
+        function getQueryParam(name) {
+            const params = new URLSearchParams(window.location.search);
+            return params.get(name);
+        }
+
+        const nextProperty = getQueryParam('next');
+        const previewElement = document.getElementById('property-preview');
+        const previewImage = document.getElementById('property-preview-image');
+        const previewTitle = document.getElementById('property-preview-title');
+        const previewSector = document.getElementById('property-preview-sector');
+        const previewPrice = document.getElementById('property-preview-price');
+        const previewDescription = document.getElementById('property-preview-description');
+        const continueLink = document.getElementById('continue-link');
+        const loginForm = document.getElementById('login-form');
+
+        if (nextProperty && propertyData[nextProperty]) {
+            const property = propertyData[nextProperty];
+            previewImage.src = property.image;
+            previewImage.alt = property.alt;
+            previewTitle.textContent = property.name;
+            previewSector.textContent = property.sector;
+            previewPrice.textContent = property.price;
+            previewDescription.textContent = property.description;
+            continueLink.href = `property-detail.html?property=${encodeURIComponent(nextProperty)}`;
+            previewElement.classList.remove('hide');
+        }
+
+        loginForm.addEventListener('submit', function (event) {
+            if (nextProperty && propertyData[nextProperty]) {
+                event.preventDefault();
+                window.location.href = `property-detail.html?property=${encodeURIComponent(nextProperty)}`;
+            }
+        });
+    </script>
