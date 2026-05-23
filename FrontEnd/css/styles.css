@@ -117,6 +117,11 @@ section {
     margin-bottom: 2rem;
 }
 
+#login-heading {
+    text-align: center;
+    margin-bottom: 1.5rem;
+}
+
 .propiedades-gallery {
     display: flex;
     flex-wrap: wrap;
@@ -133,22 +138,22 @@ section {
 }
 
 .propiedades-gallery .gallery-link {
-    flex: 1 1 18%;
+    flex: 1 1 calc(33.333% - 0.75rem);
     min-width: 180px;
     max-width: 320px;
     display: block;
     overflow: hidden;
     border-radius: 14px;
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
-    transition: flex 0.4s ease, transform 0.35s ease, box-shadow 0.35s ease;
+    transition: transform 0.35s ease, box-shadow 0.35s ease;
+    aspect-ratio: 4 / 5;
 }
 
 .propiedades-gallery:hover .gallery-link {
-    flex: 1 1 12%;
+    flex: 1 1 calc(33.333% - 0.75rem);
 }
 
 .propiedades-gallery .gallery-link:hover {
-    flex: 2 2 28%;
     transform: translateY(-4px);
     box-shadow: 0 18px 42px rgba(0, 0, 0, 0.16);
 }

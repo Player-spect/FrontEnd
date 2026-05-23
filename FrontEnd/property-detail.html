@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PNK Inmobiliaria - Detalle de Propiedad</title>
-    <meta name="description" content="Detalle de propiedad en La Serena con sector, precio e imágenes para PNK Inmobiliaria.">
-    <meta name="keywords" content="detalle propiedad, Inmobiliaria La Serena, propiedad en venta, información propiedad">
+    <meta name="description" content="Detalle de la propiedad seleccionada en La Serena con sector, precio e imagen.">
+    <meta name="keywords" content="detalle propiedad, PNK Inmobiliaria, propiedad La Serena, precio sector descripcion">
     <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
@@ -25,6 +25,7 @@
 <main id="main-content" role="main">
     <section aria-labelledby="detail-heading">
         <h2 id="detail-heading">Detalle de Propiedad</h2>
+
         <div id="property-detail-card" class="property-detail-card hide" aria-live="polite">
             <img id="detail-image" src="" alt="">
             <div class="property-detail-content">
@@ -40,9 +41,10 @@
                 </p>
             </div>
         </div>
+
         <div id="property-not-found" class="property-detail-card hide">
             <h3>Propiedad no encontrada</h3>
-            <p>La propiedad solicitada no está disponible. Vuelve al inicio para escoger otra opción.</p>
+            <p>La propiedad solicitada no está disponible. Vuelve al inicio para seleccionar otra opción.</p>
             <p><a href="../index.html">Volver al inicio</a></p>
         </div>
     </section>
@@ -70,6 +72,22 @@
             image: '../assets/img/casa2-serena.jpg',
             alt: 'Casa amplia en La Serena, sector El Milagro II'
         },
+        penuelas: {
+            name: 'Casa en La Serena, sector Peñuelas.',
+            sector: 'Sector Peñuelas',
+            price: '$162.000.000',
+            description: 'Casa amplia en venta en La Serena, sector Peñuelas. Ideal para familias que buscan cercanía a servicios.',
+            image: '../assets/img/casa3-serena.jpg',
+            alt: 'Casa en La Serena, sector Peñuelas'
+        },
+        avenida: {
+            name: 'Casa en La Serena, sector Avenida del Mar.',
+            sector: 'Sector Avenida del Mar',
+            price: '$172.000.000',
+            description: 'Casa en venta en La Serena, sector Avenida del Mar. Buena ubicación y acceso a la costa.',
+            image: '../assets/img/casa4-serena.jpeg',
+            alt: 'Casa en La Serena, sector Avenida del Mar'
+        },
         puertasdmar: {
             name: 'Departamento en La Serena, sector Puertas de mar.',
             sector: 'Sector Puertas de Mar',
@@ -93,22 +111,6 @@
             description: 'Amplia casa en venta en La Serena, sector Tierras Blancas. Incluye jardín y estacionamiento.',
             image: '../assets/img/casa5-serena.jpeg',
             alt: 'Casa en La Serena, sector Tierras Blancas'
-        },
-        penuelas: {
-            name: 'Casa en La Serena, sector Peñuelas.',
-            sector: 'Sector Peñuelas',
-            price: '$162.000.000',
-            description: 'Casa en venta con excelente ubicación y espacios amplios para familia, cercana a servicios y áreas verdes.',
-            image: '../assets/img/casa3-serena.jpg',
-            alt: 'Casa en La Serena, sector Peñuelas'
-        },
-        avenida: {
-            name: 'Casa en La Serena, sector Avenida del Mar.',
-            sector: 'Sector Avenida del Mar',
-            price: '$172.000.000',
-            description: 'Propiedad en Avenida del Mar con buen acceso a la playa y servicios, ideal para quienes quieren vivir cerca del mar.',
-            image: '../assets/img/casa4-serena.jpeg',
-            alt: 'Casa en La Serena, sector Avenida del Mar'
         }
     };
 

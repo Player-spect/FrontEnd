@@ -28,6 +28,21 @@
 
 <main id="main-content" role="main">
     <section aria-labelledby="login-heading">
+        <div id="property-preview" class="property-preview hide" aria-live="polite">
+            <img id="property-preview-image" src="" alt="" loading="lazy">
+            <div class="property-preview-content">
+                <h3 class="property-preview-title" id="property-preview-title"></h3>
+                <div class="property-meta">
+                    <span id="property-preview-sector"></span>
+                    <span id="property-preview-price"></span>
+                </div>
+                <p class="property-description" id="property-preview-description"></p>
+                <p class="property-detail-actions">
+                    <a id="continue-link" href="#">Ver detalles y continuar</a>
+                </p>
+            </div>
+        </div>
+
         <h2 id="login-heading">Iniciar Sesión</h2>
 
         <!-- Región de mensajes de error/éxito -->
@@ -73,17 +88,89 @@
 </footer>
 
     <script>
+        const propertyData = {
+            milagro1: {
+                name: 'Casa en La Serena, sector El Milagro I.',
+                sector: 'Sector El Milagro I',
+                price: '$154.000.000',
+                description: 'Casa moderna en venta en La Serena, sector El Milagro, con jardín y estacionamiento.',
+                image: '../assets/img/casa-serena.jpg',
+                alt: 'Casa moderna en La Serena, sector El Milagro I'
+            },
+            milagro2: {
+                name: 'Amplia casa en La Serena, sector El Milagro II.',
+                sector: 'Sector El Milagro II',
+                price: '$150.000.000',
+                description: 'Amplia casa en venta en La Serena, sector El Milagro II. Incluye jardín y estacionamiento.',
+                image: '../assets/img/casa2-serena.jpg',
+                alt: 'Casa amplia en La Serena, sector El Milagro II'
+            },
+            penuelas: {
+                name: 'Casa en La Serena, sector Peñuelas.',
+                sector: 'Sector Peñuelas',
+                price: '$162.000.000',
+                description: 'Casa amplia en venta en La Serena, sector Peñuelas. Ideal para familias que buscan cercanía a servicios.',
+                image: '../assets/img/casa3-serena.jpg',
+                alt: 'Casa en La Serena, sector Peñuelas'
+            },
+            avenida: {
+                name: 'Casa en La Serena, sector Avenida del Mar.',
+                sector: 'Sector Avenida del Mar',
+                price: '$172.000.000',
+                description: 'Casa en venta en La Serena, sector Avenida del Mar. Buena ubicación y acceso a la costa.',
+                image: '../assets/img/casa4-serena.jpeg',
+                alt: 'Casa en La Serena, sector Avenida del Mar'
+            },
+            puertasdmar: {
+                name: 'Departamento en La Serena, sector Puertas de mar.',
+                sector: 'Sector Puertas de Mar',
+                price: '$50.000.000',
+                description: 'Amplio departamento en venta en La Serena, sector Puertas de mar. Totalmente amoblado, con estacionamiento y buena vista.',
+                image: '../assets/img/depa-serena.jpg',
+                alt: 'Departamento en La Serena, sector Puertas de Mar'
+            },
+            avdelmar: {
+                name: 'Amplio departamento en La Serena, sector Av del Mar.',
+                sector: 'Sector Av del Mar',
+                price: '$80.000.000',
+                description: 'Amplio departamento en venta en La Serena, sector Av del Mar. Incluye estacionamiento.',
+                image: '../assets/img/depa2-serena.jpg',
+                alt: 'Departamento en La Serena, sector Avenida del Mar'
+            },
+            tierrasblancas: {
+                name: 'Amplia casa en La Serena, sector Tierras Blancas.',
+                sector: 'Sector Tierras Blancas',
+                price: '$120.000.000',
+                description: 'Amplia casa en venta en La Serena, sector Tierras Blancas. Incluye jardín y estacionamiento.',
+                image: '../assets/img/casa5-serena.jpeg',
+                alt: 'Casa en La Serena, sector Tierras Blancas'
+            }
+        };
+
         function getQueryParam(name) {
             return new URLSearchParams(window.location.search).get(name);
         }
 
         const nextProperty = getQueryParam('next');
-        const loginForm = document.getElementById('login-form');
+        const previewElement = document.getElementById('property-preview');
+        const previewImage = document.getElementById('property-preview-image');
+        const previewTitle = document.getElementById('property-preview-title');
+        const previewSector = document.getElementById('property-preview-sector');
+        const previewPrice = document.getElementById('property-preview-price');
+        const previewDescription = document.getElementById('property-preview-description');
+        const continueLink = document.getElementById('continue-link');
 
-        loginForm.addEventListener('submit', function (event) {
-            if (nextProperty) {
-                event.preventDefault();
-                window.location.href = `property-detail.html?property=${encodeURIComponent(nextProperty)}`;
-            }
-        });
+        if (nextProperty && propertyData[nextProperty]) {
+            const property = propertyData[nextProperty];
+            previewImage.src = property.image;
+            previewImage.alt = property.alt;
+            previewTitle.textContent = property.name;
+            previewSector.textContent = property.sector;
+            previewPrice.textContent = property.price;
+            previewDescription.textContent = property.description;
+            continueLink.href = `property-detail.html?property=${encodeURIComponent(nextProperty)}`;
+            previewElement.classList.remove('hide');
+        }
     </script>
+</body>
+</html>
