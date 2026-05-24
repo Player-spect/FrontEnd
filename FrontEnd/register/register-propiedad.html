@@ -194,5 +194,59 @@
 <footer role="contentinfo">
     <p>&copy; 2026 PNK Inmobiliaria. Todos los derechos reservados.</p>
 </footer>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const precioClp = document.getElementById('precio-clp');
+        const precioUf = document.getElementById('precio-uf');
+        let valorUf = null;
+
+        function mostrarPrecioUf(clp) {
+            if (!valorUf || !clp || clp <= 0) {
+                precioUf.value = '';
+                return;
+            }
+            const ufCalculada = clp / valorUf;
+            precioUf.value = ufCalculada.toFixed(2);
+        }
+
+        function actualizarDesdeClp() {
+            const clp = Number(precioClp.value);
+            if (Number.isFinite(clp) && clp > 0) {
+                mostrarPrecioUf(clp);
+            } else {
+                precioUf.value = '';
+            }
+        }
+
+        function cargarValorUf() {
+            const apiUrl = 'https://mindicador.cl/api/uf';
+            fetch(apiUrl)
+                .then(function (response) {
+                    if (!response.ok) {
+                        throw new Error('No se pudo obtener el valor UF');
+                    }
+                    return response.json();
+                })
+                .then(function (data) {
+                    if (data && data.serie && data.serie.length > 0 && typeof data.serie[0].valor === 'number') {
+                        valorUf = Number(data.serie[0].valor);
+                        if (precioClp.value) {
+                            actualizarDesdeClp();
+                        }
+                    }
+                })
+                .catch(function () {
+                    // Si la API falla, no se bloquea el formulario.
+                    valorUf = null;
+                });
+        }
+
+        if (precioClp && precioUf) {
+            precioClp.addEventListener('input', actualizarDesdeClp);
+            cargarValorUf();
+        }
+    });
+</script>
 </body>
 </html>
