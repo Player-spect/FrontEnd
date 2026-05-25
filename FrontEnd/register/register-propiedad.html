@@ -29,6 +29,29 @@
     <section aria-labelledby="form-heading">
         <h2 id="form-heading">Registrar Propiedad</h2>
 
+        <div class="property-search-layout">
+            <div class="property-search" role="search" aria-labelledby="search-heading">
+                <h3 id="search-heading">Buscar Propiedad por Provincia, Comuna o Sector</h3>
+                <div class="property-search__fields">
+                <div class="property-search__field">
+                    <label for="search-provincia">Provincia</label>
+                    <input type="text" id="search-provincia" name="search-provincia" autocomplete="address-level2" placeholder="Ej: Elqui">
+                </div>
+                <div class="property-search__field">
+                    <label for="search-comuna">Comuna</label>
+                    <input type="text" id="search-comuna" name="search-comuna" autocomplete="address-level3" placeholder="Ej: Coquimbo">
+                </div>
+                <div class="property-search__field">
+                    <label for="search-sector">Sector</label>
+                    <input type="text" id="search-sector" name="search-sector" placeholder="Ej: Peñuelas">
+                </div>
+                <div class="property-search__action">
+                    <button type="button" id="search-button">Buscar inmueble</button>
+                </div>
+            </div>
+            <div id="search-results" class="search-results" aria-live="polite" aria-atomic="true"></div>
+        </div>
+        <div class="property-form-container">
         <div id="form-messages" role="alert" aria-live="assertive" aria-atomic="true" class="sr-only"></div>
 
         <form id="register-propiedad-form" action="#" method="post" novalidate
@@ -188,6 +211,8 @@
 
             <button type="submit">Registrar Propiedad</button>
         </form>
+            </div>
+        </div>
     </section>
 </main>
 
@@ -336,6 +361,106 @@
                     showMessage('Completa todos los campos obligatorios antes de registrar la propiedad.');
                 }
             });
+
+            const searchProvincia = document.getElementById('search-provincia');
+            const searchComuna = document.getElementById('search-comuna');
+            const searchSector = document.getElementById('search-sector');
+            const searchButton = document.getElementById('search-button');
+            const searchResults = document.getElementById('search-results');
+            const tipoInput = document.getElementById('tipo');
+            const descripcionInput = document.getElementById('descripcion');
+            const provinciaInput = document.getElementById('provincia');
+            const comunaInput = document.getElementById('comuna');
+            const sectorInput = document.getElementById('sector');
+
+            function renderSearchResults(results) {
+                if (!searchResults) {
+                    return;
+                }
+                if (!results || results.length === 0) {
+                    searchResults.innerHTML = '<p>No se encontraron inmuebles con esos criterios.</p>';
+                    return;
+                }
+                const cards = results.map(function (result) {
+                    return `
+                        <article class="search-card">
+                            <div class="search-card__main">
+                                <div>
+                                    <p class="search-card__type">${result.tipo}</p>
+                                    <p class="search-card__description">${result.descripcion}</p>
+                                    <p class="search-card__location">${result.provincia} / ${result.comuna} / ${result.sector}</p>
+                                </div>
+                                <div class="search-card__prices">
+                                    <span>CLP $${result.precio_clp.toLocaleString('es-CL')}</span>
+                                </div>
+                            </div>
+                            <button type="button" class="search-card__select" data-id="${result.id}">Seleccionar</button>
+                        </article>
+                    `;
+                }).join('');
+                searchResults.innerHTML = cards;
+
+                searchResults.querySelectorAll('.search-card__select').forEach(function (button) {
+                    button.addEventListener('click', function () {
+                        const index = Array.from(searchResults.querySelectorAll('.search-card__select')).indexOf(button);
+                        const selected = results[index];
+                        if (selected) {
+                            if (tipoInput) {
+                                tipoInput.value = selected.tipo;
+                            }
+                            if (descripcionInput) {
+                                descripcionInput.value = selected.descripcion;
+                            }
+                            if (precioClp) {
+                                precioClp.value = selected.precio_clp;
+                                if (valorUf) {
+                                    mostrarPrecioUf(selected.precio_clp);
+                                }
+                            }
+                            if (provinciaInput) {
+                                provinciaInput.value = selected.provincia;
+                            }
+                            if (comunaInput) {
+                                comunaInput.value = selected.comuna;
+                            }
+                            if (sectorInput) {
+                                sectorInput.value = selected.sector;
+                            }
+                            searchResults.innerHTML = '<p>Inmueble seleccionado y cargado en el formulario del CRUD.</p>';
+                        }
+                    });
+                });
+            }
+
+            async function buscarInmueble() {
+                if (!searchButton || !searchResults) {
+                    return;
+                }
+                const provinciaValor = (searchProvincia && searchProvincia.value.trim()) || '';
+                const comunaValor = (searchComuna && searchComuna.value.trim()) || '';
+                const sectorValor = (searchSector && searchSector.value.trim()) || '';
+                const query = new URLSearchParams({
+                    provincia: provinciaValor,
+                    comuna: comunaValor,
+                    sector: sectorValor
+                });
+                searchResults.innerHTML = '<p>Cargando resultados...</p>';
+                try {
+                    const response = await fetch('../../BackEnd/api/search_property.php?' + query);
+                    const data = await response.json();
+                    if (data && data.success && Array.isArray(data.results)) {
+                        renderSearchResults(data.results);
+                    } else {
+                        searchResults.innerHTML = '<p>No se encontró ningún inmueble.</p>';
+                    }
+                } catch (error) {
+                    searchResults.innerHTML = '<p>Error al buscar inmuebles. Intenta nuevamente.</p>';
+                }
+            }
+
+            if (searchButton) {
+                searchButton.addEventListener('click', buscarInmueble);
+            }
         }
     });
 </script>

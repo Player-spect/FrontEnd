@@ -408,6 +408,12 @@ section {
         max-width: none;
     }
 
+    .property-search-layout {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+
     .property-card__container,
     .property-card__content {
         grid-template-columns: 1fr;
@@ -565,6 +571,109 @@ button {
 
 button:hover {
     background-color: var(--color-accent-hover);
+}
+
+.property-search {
+    margin-bottom: 1.5rem;
+    padding: 1.25rem;
+    border-radius: 14px;
+    background-color: #f8fafc;
+    border: 1px solid rgba(30, 45, 61, 0.08);
+}
+
+.property-search__fields {
+    display: grid;
+    gap: 1rem;
+}
+
+.property-search__field {
+    display: grid;
+    gap: 0.35rem;
+}
+
+.property-search__field label {
+    font-weight: bold;
+    color: var(--color-text);
+}
+
+.property-search__field input {
+    width: 100%;
+    padding: 0.7rem 0.9rem;
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+}
+
+.property-search__action {
+    text-align: right;
+}
+
+.search-results {
+    margin-top: 1.25rem;
+    display: grid;
+    gap: 1rem;
+}
+
+.search-card {
+    padding: 1rem;
+    border-radius: 14px;
+    background-color: #ffffff;
+    border: 1px solid rgba(30, 45, 61, 0.08);
+    display: grid;
+    gap: 1rem;
+}
+
+.search-card__main {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.search-card__type {
+    font-weight: bold;
+    margin: 0 0 0.25rem;
+}
+
+.search-card__description,
+.search-card__location {
+    margin: 0;
+    color: #475569;
+}
+
+.search-card__prices {
+    display: flex;
+    align-items: center;
+    font-weight: bold;
+    color: var(--color-text);
+}
+
+.search-card__select {
+    justify-self: flex-start;
+    padding: 0.75rem 1rem;
+    border: none;
+    border-radius: 8px;
+    background-color: var(--color-accent);
+    color: #ffffff;
+    cursor: pointer;
+}
+
+.search-card__select:hover {
+    background-color: #0b2f76;
+}
+
+.property-search-layout {
+    display: grid;
+    grid-template-columns: minmax(280px, 340px) 1fr;
+    gap: 1.75rem;
+    align-items: start;
+}
+
+.property-form-container {
+    display: block;
+}
+
+.property-search {
+    min-width: 0;
 }
 
 button:disabled {
