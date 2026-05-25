@@ -50,8 +50,7 @@
                 </div>
                 <p class="property-description" id="detail-description"></p>
                 <p class="property-detail-actions">
-                    <a id="detail-back" href="../index.html">Volver al inicio</a>
-                    <a id="detail-login" href="login.html">Iniciar sesión</a>
+                    <a id="detail-back" href="login.html">Agendar una visita</a>
                 </p>
             </div>
         </div>
@@ -220,6 +219,10 @@
             antejardin: true,
             patioTrasero: true,
             piscina: true,
+            description: 'Amplia casa en venta en La Serena, sector Tierras Blancas. Incluye jardín y estacionamiento.',
+            image: '../assets/img/casa5-serena.jpeg',
+            alt: 'Casa en La Serena, sector Tierras Blancas'
+        }
     };
 
     function getQueryParam(name) {
@@ -229,7 +232,6 @@
     const propertyId = getQueryParam('property');
     const detailCard = document.getElementById('property-detail-card');
     const notFound = document.getElementById('property-not-found');
-    const loginLink = document.getElementById('detail-login');
 
     function formatFecha(fecha) {
         const parsed = new Date(fecha);
@@ -258,7 +260,6 @@
         document.getElementById('detail-patio').textContent = property.patioTrasero ? 'Patio trasero' : '';
         document.getElementById('detail-piscina').textContent = property.piscina ? 'Piscina' : '';
         document.getElementById('detail-description').textContent = property.description;
-        loginLink.href = `login.html?next=${encodeURIComponent(propertyId)}`;
         detailCard.classList.remove('hide');
     } else {
         notFound.classList.remove('hide');
