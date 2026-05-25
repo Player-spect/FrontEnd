@@ -3,6 +3,5 @@
 session_start();
 session_unset();
 session_destroy();
-header('Location: ../../FrontEnd/login.html');
+header('Location: ../../Evaluacion2/login.html');
 exit;
-?>
