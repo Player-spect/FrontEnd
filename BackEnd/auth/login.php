@@ -53,7 +53,7 @@ try {
 	echo json_encode([
 		'success' => true,
 		'message' => 'Inicio Exitoso',
-		'redirect' => '../../FronEnd/dashboard/dashboard-' . $user['rol'] . '.html'
+		'redirect' => '../../FrontEnd/dashboard/dashboard-' . $user['rol'] . '.html'
 	]);
 } catch(PDOException $e){
 	echo json_encode(['success' => false, 'message' => 'Error interno del Servidor']);
