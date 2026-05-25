@@ -92,9 +92,9 @@
                    autocomplete="tel"
                    aria-required="true"
                    aria-describedby="telefono-help"
-                   placeholder="Ej: +56 9 1234 5678"
+                   placeholder="Ej: +56 912345678"
                    inputmode="tel">
-            <span id="telefono-help" class="sr-only">Ingresa tu número de teléfono móvil con código de país. Ejemplo: +56 9 1234 5678</span>
+            <span id="telefono-help" class="sr-only">Ingresa tu teléfono con prefijo obligatorio +56 9 y luego 8 dígitos. Ejemplo: +56 912345678</span>
 
             <label for="propiedad">
                 N° de la Propiedad (Registro de Bienes Raíces): <span aria-hidden="true">*</span>
@@ -115,5 +115,96 @@
 <footer role="contentinfo">
     <p>&copy; 2026 PNK Inmobiliaria. Todos los derechos reservados.</p>
 </footer>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const form = document.getElementById('register-propietario-form');
+        const rutField = document.getElementById('rut');
+        const emailField = document.getElementById('email');
+        const passwordField = document.getElementById('password');
+        const telefonoField = document.getElementById('telefono');
+
+        function showError(message) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Validación inválida',
+                text: message,
+                confirmButtonText: 'Aceptar'
+            });
+        }
+
+        function validarRut(value) {
+            if (!value) return false;
+            const rut = value.replace(/\./g, '').replace(/\s+/g, '').toLowerCase();
+            const match = rut.match(/^([0-9]{1,8})-([0-9k])$/i);
+            if (!match) return false;
+            const cuerpo = match[1];
+            const dv = match[2];
+            let suma = 0;
+            let multiplicador = 2;
+            for (let i = cuerpo.length - 1; i >= 0; i--) {
+                suma += Number(cuerpo[i]) * multiplicador;
+                multiplicador = multiplicador === 7 ? 2 : multiplicador + 1;
+            }
+            const resultado = 11 - (suma % 11);
+            const dvEsperado = resultado === 11 ? '0' : resultado === 10 ? 'k' : String(resultado);
+            return dv.toLowerCase() === dvEsperado;
+        }
+
+        function validarEmail(value) {
+            if (!value) return false;
+            const email = value.trim();
+            if ((email.match(/@/g) || []).length !== 1) return false;
+            return /^[A-Za-z0-9]{3,}@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/.test(email);
+        }
+
+        function validarPassword(value) {
+            if (!value) return false;
+            return /^(?=.*[a-z])(?=.*[A-Z])(?=.*[.*\-@#\$%!])[A-Za-z0-9.*\-@#\$%!]{8,}$/.test(value);
+        }
+
+        function validarTelefono(value) {
+            if (!value) return false;
+            const telefono = value.trim();
+            return /^\+56 9\d{8}$/.test(telefono);
+        }
+
+        async function hashPassword(password) {
+            const encoder = new TextEncoder();
+            const data = encoder.encode(password);
+            const hashBuffer = await crypto.subtle.digest('SHA-256', data);
+            return Array.from(new Uint8Array(hashBuffer)).map(byte => byte.toString(16).padStart(2, '0')).join('');
+        }
+
+        async function handleSubmit(event) {
+            event.preventDefault();
+            if (!rutField || !validarRut(rutField.value)) {
+                showError('El RUT debe tener un formato válido y debe incluir el dígito verificador.');
+                return;
+            }
+            if (!emailField || !validarEmail(emailField.value)) {
+                showError('El correo electrónico debe ser válido, incluir solo un @ y tener al menos un punto después del dominio.');
+                return;
+            }
+            if (!passwordField || !validarPassword(passwordField.value)) {
+                showError('La contraseña debe tener mínimo 8 caracteres, con mayúscula, minúscula y al menos un carácter especial (. * - @ # $ % !).');
+                return;
+            }
+            if (!telefonoField || !validarTelefono(telefonoField.value)) {
+                showError('El teléfono móvil debe comenzar con +56 9 y luego contener exactamente 8 dígitos.');
+                return;
+            }
+            if (passwordField.value) {
+                passwordField.value = await hashPassword(passwordField.value);
+            }
+            form.submit();
+        }
+
+        if (form) {
+            form.addEventListener('submit', handleSubmit);
+        }
+    });
+</script>
 </body>
 </html>
