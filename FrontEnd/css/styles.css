@@ -179,6 +179,152 @@ section {
     opacity: 0.9;
 }
 
+.propiedades-list {
+    display: grid;
+    gap: 1.5rem;
+    width: 100%;
+}
+
+.property-card {
+    border-radius: 18px;
+    background-color: #ffffff;
+    border: 1px solid rgba(30, 45, 61, 0.08);
+    box-shadow: 0 14px 35px rgba(0, 0, 0, 0.08);
+    padding: 1.5rem;
+}
+
+.property-card__title {
+    text-align: center;
+    margin: 0 0 1rem;
+    font-size: 1.5rem;
+    letter-spacing: 0.02em;
+}
+
+.property-card__container {
+    display: grid;
+    grid-template-columns: minmax(240px, 1fr) 1.1fr;
+    gap: 1.25rem;
+    align-items: start;
+}
+
+.property-card__image-link,
+.property-card__image {
+    display: block;
+    width: 100%;
+    border-radius: 16px;
+    overflow: hidden;
+}
+
+.property-card__image {
+    height: 100%;
+    object-fit: cover;
+    min-height: 240px;
+}
+
+.property-card__content {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 1rem;
+}
+
+.property-card__info {
+    display: grid;
+    gap: 1rem;
+}
+
+.property-card__meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.65rem;
+    align-items: center;
+}
+
+.property-card__meta span {
+    background: #f4f7fb;
+    color: var(--color-text);
+    padding: 0.6rem 0.85rem;
+    border-radius: 999px;
+    font-size: 0.95rem;
+}
+
+.property-card__description {
+    margin: 0;
+    line-height: 1.75;
+    color: #38414a;
+}
+
+.property-card__side {
+    display: grid;
+    gap: 0.75rem;
+    justify-items: stretch;
+    min-width: 170px;
+}
+
+.property-card__price-clp,
+.property-card__price-uf,
+.property-card__published {
+    border-radius: 14px;
+    padding: 0.9rem;
+    background-color: #f4f7fb;
+    color: var(--color-text);
+    text-align: center;
+}
+
+.property-card__price-clp {
+    font-size: 1.05rem;
+    font-weight: bold;
+}
+
+.property-card__price-uf {
+    font-size: 0.95rem;
+}
+
+.property-card__published {
+    font-size: 0.9rem;
+}
+
+.property-card__admin-actions {
+    display: none;
+    gap: 0.65rem;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.admin-view .property-card__admin-actions,
+.gestor-view .property-card__admin-actions {
+    display: flex;
+}
+
+.property-card__admin-actions button {
+    border: none;
+    border-radius: 8px;
+    padding: 0.75rem 1rem;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.property-card__admin-actions button:hover {
+    opacity: 0.92;
+}
+
+.property-card__admin-actions button:not(.property-card__delete) {
+    background-color: #1e2d3d;
+    color: #ffffff;
+}
+
+.property-card__delete {
+    background-color: #b91c1c;
+    color: #ffffff;
+}
+
+.property-card__image-link:hover .property-card__image {
+    transform: scale(1.02);
+}
+
+.property-card__image {
+    transition: transform 0.3s ease;
+}
+
 .property-preview,
 .property-detail-card {
     width: 100%;
@@ -260,6 +406,15 @@ section {
     .propiedades-gallery .gallery-link {
         flex: 1 1 calc(50% - 0.75rem);
         max-width: none;
+    }
+
+    .property-card__container,
+    .property-card__content {
+        grid-template-columns: 1fr;
+    }
+
+    .property-card__side {
+        min-width: auto;
     }
 
     .property-preview {
