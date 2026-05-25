@@ -4,14 +4,11 @@ require_once "../config/database.php";
 header('Content-Type: application/json');
 
 // Validate Session
-
-/*if(!isset($_SESSION['user_id'])){
+if(!isset($_SESSION['user_id'])){
     echo json_encode(['success' => false, 'message' => 'Not logging in']);
     http_response_code(401);
     exit();
-}*/
-
-$_SESSION['user_id'] = 2;
+}
 
 $action = $_POST['action'] ?? $_GET['action'] ?? '';
 
