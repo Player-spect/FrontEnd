@@ -195,11 +195,45 @@
     <p>&copy; 2026 PNK Inmobiliaria. Todos los derechos reservados.</p>
 </footer>
 
+
+<!-- CALCULO UF AUTOMATICOO -->
+
 <script>
     document.addEventListener('DOMContentLoaded', function () {
         const precioClp = document.getElementById('precio-clp');
         const precioUf = document.getElementById('precio-uf');
+        const fechaPublicacion = document.getElementById('fecha-publicacion');
+        const form = document.getElementById('register-propiedad-form');
+        const formMessages = document.getElementById('form-messages');
+        const checkboxNames = [
+            'bodega',
+            'estacionamiento',
+            'logia',
+            'cocina-amoblada',
+            'antejardin',
+            'patio-trasero',
+            'piscina'
+        ];
+        const checkboxes = checkboxNames.map(function (name) {
+            return document.querySelector('input[name="' + name + '"]');
+        }).filter(Boolean);
         let valorUf = null;
+
+        function showMessage(message) {
+            if (!formMessages) {
+                return;
+            }
+            formMessages.textContent = message;
+            formMessages.classList.remove('sr-only');
+        }
+
+        function clearMessage() {
+            if (!formMessages) {
+                return;
+            }
+            formMessages.textContent = '';
+            formMessages.classList.add('sr-only');
+        }
 
         function mostrarPrecioUf(clp) {
             if (!valorUf || !clp || clp <= 0) {
@@ -242,9 +276,66 @@
                 });
         }
 
+        function validarFecha(fecha) {
+            return fecha && !isNaN(new Date(fecha).getTime());
+        }
+
+        function validarCaracteristicas() {
+            return checkboxes.every(function (checkbox) {
+                return checkbox.checked;
+            });
+        }
+
+        function validarFormulario() {
+            if (!form.checkValidity()) {
+                return false;
+            }
+            if (!precioUf.value || Number(precioUf.value) <= 0) {
+                return false;
+            }
+            if (!validarFecha(fechaPublicacion.value)) {
+                return false;
+            }
+            if (!validarCaracteristicas()) {
+                return false;
+            }
+            return true;
+        }
+
         if (precioClp && precioUf) {
+            precioUf.readOnly = true;
             precioClp.addEventListener('input', actualizarDesdeClp);
             cargarValorUf();
+        }
+
+        if (form) {
+            checkboxes.forEach(function (checkbox) {
+                checkbox.required = true;
+                checkbox.setAttribute('aria-required', 'true');
+            });
+
+            form.addEventListener('submit', function (event) {
+                clearMessage();
+                if (!validarFormulario()) {
+                    event.preventDefault();
+                    if (!form.checkValidity()) {
+                        form.reportValidity();
+                    }
+                    if (!precioUf.value || Number(precioUf.value) <= 0) {
+                        showMessage('El precio en UF debe calcularse automáticamente a partir del precio en CLP.');
+                        return;
+                    }
+                    if (!validarFecha(fechaPublicacion.value)) {
+                        showMessage('La fecha de publicación es obligatoria y debe tener un formato de fecha válido.');
+                        return;
+                    }
+                    if (!validarCaracteristicas()) {
+                        showMessage('Debes marcar todas las características adicionales obligatorias: bodega, estacionamiento, logia, cocina amoblada, antejardín, patio trasero y piscina.');
+                        return;
+                    }
+                    showMessage('Completa todos los campos obligatorios antes de registrar la propiedad.');
+                }
+            });
         }
     });
 </script>
