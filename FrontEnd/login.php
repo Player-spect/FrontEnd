@@ -1,3 +1,5 @@
+
+<?php require_once '../../BackEnd/includes/navegacion.php'; ?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -139,6 +141,16 @@
 
         if (form) {
             form.addEventListener('submit', handleSubmit);
+        }
+    });
+</script>
+<script>
+    document.addEventListener('DOMContentLoaded', async () => {
+        const response = await fetch('../../BackEnd/api/check_session.php');
+        const data = await response.json();
+
+        if (data.logged_in) {
+            window.location.href = `../dashboard/dashboard-${data.rol}.php`;
         }
     });
 </script>
