@@ -1,94 +1,91 @@
-<?php require_once '../../BackEnd/includes/session_checker.php'; ?>
-
+<?php
+require_once '../../BackEnd/includes/session_checker.php';
+if ($_SESSION['user_rol'] !== 'admin') { header('Location: ../dashboard-gestor.php'); exit; }
+?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Dashboard de administrador para gestionar usuarios, propiedades y publicaciones en PNK Inmobiliaria">
-    <title>PNK Inmobiliaria - Dashboard Administrador</title>
-    <meta name="keywords" content="dashboard admin inmobiliaria, gestionar usuarios Coquimbo, panel administrador PNK">
-    <meta name="author" content="PNK Inmobiliaria">
-    <meta name="robots" content="noindex, nofollow">
-    <link rel="canonical" href="https://www.pnk-inmobiliaria.cl/dashboard/dashboard-admin.html">
+    <title>Panel Administrador - PNK Inmobiliaria</title>
     <link rel="stylesheet" href="../css/styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 <body>
-<a href="#main-content" class="skip-link">Saltar al contenido principal</a>
 
-<header role="banner">
-    <h1>PNK Inmobiliaria</h1>
-    <nav aria-label="Navegación principal">
-        <ul>
-            <li><a href="../../index.html">Inicio</a></li>
-            <li><a href="dashboard-admin.html" aria-current="page">Dashboard</a></li>
-            <li><a href="../login.html">Cerrar Sesión</a></li>
-        </ul>
-    </nav>
-</header>
+<?php require_once '../../BackEnd/includes/navegacion.php'; ?>
 
-<main id="main-content" role="main">
-    <section aria-labelledby="dashboard-title">
-        <h2 id="dashboard-title">Administración General</h2>
-
-        <!-- Región de notificaciones -->
-        <div id="admin-messages" role="status" aria-live="polite" aria-atomic="true" class="sr-only"></div>
-
-        <div class="dashboard" role="region" aria-labelledby="dashboard-title">
-            <article class="card">
-                <h3>Ingresar Dueño de Inmueble</h3>
-                <a href="../register/register-propietario.html">Registrar Propietario</a>
-            </article>
-            <article class="card">
-                <h3>Habilitar Gestor Inmobiliario</h3>
-                <a href="../register/register-gestor.html">Registrar Gestor</a>
-            </article>
-            <article class="card">
-                <h3>Gestionar Usuarios</h3>
-                <button type="button"
-                        aria-haspopup="dialog"
-                        onclick="notificar('Funcionalidad en desarrollo')">
-                    Ver Usuarios
-                </button>
-            </article>
-            <article class="card">
-                <h3>Administrar Publicaciones</h3>
-                <button type="button"
-                        aria-haspopup="dialog"
-                        onclick="notificar('Funcionalidad en desarrollo')">
-                    Ver Publicaciones
-                </button>
-            </article>
-            <article class="card">
-                <h3>Registrar Propiedad</h3>
-                <a href="../register/register-propiedad.html">Ir a Registrar</a>
-            </article>
-            <article class="card">
-                <h3>Gestionar Propiedades</h3>
-                <button type="button"
-                        aria-haspopup="dialog"
-                        onclick="notificar('Funcionalidad en desarrollo')">
-                    Ver Propiedades
-                </button>
-            </article>
+<main id="main-content">
+    <section>
+        <h2>Administración General</h2>
+        <div class="dashboard">
+            <article class="card"><button onclick="cargarTabla('usuarios')">Gestionar Usuarios</button></article>
+            <article class="card"><button onclick="cargarTabla('propiedades')">Gestionar Propiedades</button></article>
         </div>
+    </section>
+
+    <section id="data-section" style="margin-top: 3rem; display: none;">
+        <h2 id="table-title">Datos del Sistema</h2>
+        <table id="data-table" style="width: 100%; border-collapse: collapse;">
+            <thead><tr id="table-head"></tr></thead>
+            <tbody id="table-body"></tbody>
+        </table>
     </section>
 </main>
 
-<footer role="contentinfo">
-    <p>&copy; 2026 PNK Inmobiliaria. Todos los derechos reservados.</p>
-</footer>
-
 <script>
-    function notificar(mensaje) {
-        const region = document.getElementById('admin-messages');
-        region.textContent = mensaje;
-        region.classList.remove('sr-only');
-        // Ocultar después de 4 segundos
-        setTimeout(() => {
-            region.textContent = '';
-            region.classList.add('sr-only');
-        }, 4000);
+    let tipoActual = '';
+
+    async function cargarTabla(tipo) {
+        tipoActual = tipo;
+        const tbody = document.getElementById('table-body');
+        const thead = document.getElementById('table-head');
+        document.getElementById('data-section').style.display = 'block';
+
+        const response = await fetch(`../../BackEnd/api/admin_crud.php?action=list_${tipo}`);
+        const result = await response.json();
+
+        if (result.success) {
+            const columnas = Object.keys(result.data[0]);
+            thead.innerHTML = columnas.map(c => `<th>${c.toUpperCase()}</th>`).join('') + '<th>ACCIONES</th>';
+            tbody.innerHTML = result.data.map(item => `
+                <tr>
+                    ${Object.values(item).map(val => `<td>${val}</td>`).join('')}
+                    <td>
+                        ${tipo === 'usuarios' ? `
+                            <select onchange="cambiarEstado(${item.id}, this.value)">
+                                <option value="activo" ${item.estado === 'activo' ? 'selected' : ''}>Activo</option>
+                                <option value="inactivo" ${item.estado === 'inactivo' ? 'selected' : ''}>Inactivo</option>
+                            </select>
+                            <button onclick="ejecutarAccion('delete_propiedad', ${item.id})" style="background-color: var(--color-error); margin-center; min-width:100px; padding: 0.4rem 0.8rem; font-size: 0.9rem;">
+                               Eliminar
+                        ` : `
+                            <button onclick="ejecutarAccion('delete_propiedad', ${item.id})" style="background-color: var(--color-error); margin: 5px; min-width:100px; padding: 0.4rem 0.8rem; font-size: 0.9rem;">
+                                Eliminar
+                            </button>
+                        `}
+                    </td>
+                </tr>
+            `).join('');
+        }
+    }
+
+    async function cambiarEstado(id, nuevoEstado) {
+        const fd = new FormData();
+        fd.append('action', 'update_estado');
+        fd.append('id', id);
+        fd.append('estado', nuevoEstado);
+        await fetch('../../BackEnd/api/admin_crud.php', { method: 'POST', body: fd });
+        Swal.fire('Éxito', 'Estado actualizado', 'success');
+    }
+
+    async function ejecutarAccion(accion, id) {
+        if ((await Swal.fire({title: '¿Seguro?', icon: 'warning', showCancelButton: true})).isConfirmed) {
+            const fd = new FormData();
+            fd.append('action', accion);
+            fd.append('id', id);
+            await fetch('../../BackEnd/api/admin_crud.php', { method: 'POST', body: fd });
+            cargarTabla(tipoActual);
+        }
     }
 </script>
 </body>

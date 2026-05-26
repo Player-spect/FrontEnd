@@ -18,18 +18,23 @@ try {
 
     switch ($action){
         case 'list':
-            // List the properties
-            $stmt = $conn->query("
+            $stmt = $conn->prepare("
                     SELECT p.id, p.tipo, p.descripcion, p.dormitorios, p.banos, p.area_construida,
                     p.area_terreno, p.precio_clp, p.precio_uf, p.fecha_publicacion, p.solicitar_visita, p.bodega, p.estacionamiento,
                     p.logia, p.cocina_amoblada, p.antejardin, p.patio_trasero, p.piscina, p.provincia, p.comuna, p.sector, p.usuario_id,
                     p.created_at AS Propiedad, (select ruta FROM fotos_propiedad WHERE propiedad_id = p.id AND es_principal = 1 LIMIT 1) as main_image
                     FROM propiedades p
-                    ORDER BY created_at DESC");
+                    WHERE p.usuario_id = :user_id
+                    ORDER BY p.created_at DESC
+            ");
+
+            $stmt->execute(['user_id' => $_SESSION['user_id']]);
 
             $properties = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
             echo json_encode(['success' => true, 'data' => $properties]);
             break;
+
 
         case 'create':
             // Creacion de Propiedad
@@ -138,7 +143,8 @@ try {
         case 'delete':
             // Eliminacion de Propiedad
             $id = $_POST['id'] ?? $_GET['id'];
-            $photo_dir = '../../FrontEnd/uploads/propiedades/';
+            $root_dir = dirname(__DIR__, 2);
+            $photo_dir = $root_dir . '/uploads/propiedades/';
 
             // Delete Photos
             $stmt_dir = $conn->prepare("SELECT ruta FROM fotos_propiedad WHERE propiedad_id = :id");

@@ -1,4 +1,5 @@
-<?php require_once '../../BackEnd/includes/session_checker.php'; ?>
+<?php require_once '../BackEnd/includes/session_checker.php'; ?>
+<?php require_once '../BackEnd/includes/navegacion.php'; ?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -20,8 +21,8 @@
     <nav aria-label="Navegación principal">
         <ul>
             <li><a href="../index.html">Inicio</a></li>
-            <li><a href="dashboard.html" aria-current="page">Dashboard</a></li>
-            <li><a href="login.html">Cerrar Sesión</a></li>
+            <li><a href="dashboard.php" aria-current="page">Dashboard</a></li>
+            <li><a href="login.php">Cerrar Sesión</a></li>
         </ul>
     </nav>
 </header>

@@ -1,3 +1,6 @@
+
+<?php require_once '../BackEnd/includes/navegacion.php'; ?>
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -19,7 +22,7 @@
     <nav aria-label="Navegación principal">
         <ul>
             <li><a href="../index.html">Inicio</a></li>
-            <li><a href="login.html">Iniciar Sesión</a></li>
+            <li><a href="login.php">Iniciar Sesión</a></li>
             <li><a href="register/register-gestor.html">Registrar Gestor</a></li>
             <li><a href="register/register-propietario.html">Registrar Propietario</a></li>
         </ul>
@@ -50,7 +53,7 @@
             <button type="submit">Enviar Instrucciones</button>
         </form>
 
-        <p><a href="login.html">← Volver al Inicio de Sesión</a></p>
+        <p><a href="login.php">← Volver al Inicio de Sesión</a></p>
     </section>
 </main>
 

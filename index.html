@@ -45,7 +45,7 @@
         <nav aria-label="Navegación principal">
             <ul>
                 <li><a href="index.html" aria-current="page">Inicio</a></li>
-                <li><a href="FrontEnd/login.html">Iniciar Sesión</a></li>
+                <li><a href="FrontEnd/login.php">Iniciar Sesión</a></li>
                 <li><a href="FrontEnd/register/register-gestor.html">Registrar Gestor</a></li>
                 <li><a href="FrontEnd/register/register-propietario.html">Registrar Propietario</a></li>
 
@@ -59,239 +59,12 @@
             <p>Plataforma para publicar y gestionar propiedades inmobiliarias en la Región de Coquimbo.</p>
             <p>Únete como propietario o gestor inmobiliario y comienza a promocionar propiedades.</p>
         </section>
-        <section>
-            <section aria-labelledby="propiedades-heading" class="propiedades-list">
-                <h2 id="propiedades-heading">Propiedades Destacadas en La Serena</h2>
-
-                <article class="property-card">
-                    <h3 class="property-card__title">Casa El Milagro</h3>
-                    <div class="property-card__container">
-                        <a href="FrontEnd/property-detail.html?property=milagro1" class="property-card__image-link">
-                            <img src="assets/img/casa-serena.jpg" alt="Casa en La Serena en El Milagro" class="property-card__image" loading="lazy">
-                        </a>
-                        <div class="property-card__content">
-                            <div class="property-card__info">
-                                <div class="property-card__meta">
-                                    <span>4 dormitorios</span>
-                                    <span>3 baños</span>
-                                    <span>245 m²</span>
-                                    <span>La Serena</span>
-                                </div>
-                                <p class="property-card__description">Hermosa casa familiar en El Milagro, con amplio jardín y excelente conectividad cercana a colegios y supermercados.</p>
-                            </div>
-                            <aside class="property-card__side">
-                                <div class="property-card__price-clp">CLP $154.000.000</div>
-                                <div class="property-card__price-uf">UF 4.400</div>
-                                <div class="property-card__published">Publicado: 02/05/2026</div>
-                                <div class="property-card__admin-actions">
-                                    <button type="button">Editar</button>
-                                    <button type="button" class="property-card__delete">Borrar</button>
-                                </div>
-                            </aside>
-                        </div>
-                    </div>
-                </article>
-
-                <article class="property-card">
-                    <h3 class="property-card__title">Casa Colina Blanca</h3>
-                    <div class="property-card__container">
-                        <a href="FrontEnd/property-detail.html?property=milagro2" class="property-card__image-link">
-                            <img src="assets/img/casa2-serena.jpg" alt="Casa en La Serena en Colina Blanca" class="property-card__image" loading="lazy">
-                        </a>
-                        <div class="property-card__content">
-                            <div class="property-card__info">
-                                <div class="property-card__meta">
-                                    <span>3 dormitorios</span>
-                                    <span>2 baños</span>
-                                    <span>180 m²</span>
-                                    <span>Colina Blanca</span>
-                                </div>
-                                <p class="property-card__description">Acogedora propiedad con diseño moderno y patio interior, ubicada en un barrio tranquilo con buena accesibilidad.</p>
-                            </div>
-                            <aside class="property-card__side">
-                                <div class="property-card__price-clp">CLP $120.500.000</div>
-                                <div class="property-card__price-uf">UF 3.450</div>
-                                <div class="property-card__published">Publicado: 15/04/2026</div>
-                                <div class="property-card__admin-actions">
-                                    <button type="button">Editar</button>
-                                    <button type="button" class="property-card__delete">Borrar</button>
-                                </div>
-                            </aside>
-                        </div>
-                    </div>
-                </article>
-
-                <article class="property-card">
-                    <h3 class="property-card__title">Casa Peñuelas</h3>
-                    <div class="property-card__container">
-                        <a href="FrontEnd/property-detail.html?property=penuelas" class="property-card__image-link">
-                            <img src="assets/img/casa3-serena.jpg" alt="Casa en La Serena en Peñuelas" class="property-card__image" loading="lazy">
-                        </a>
-                        <div class="property-card__content">
-                            <div class="property-card__info">
-                                <div class="property-card__meta">
-                                    <span>5 dormitorios</span>
-                                    <span>4 baños</span>
-                                    <span>320 m²</span>
-                                    <span>Peñuelas</span>
-                                </div>
-                                <p class="property-card__description">Amplia propiedad de lujo con piscina, grandes ventanales y vistas privilegiadas, ideal para reuniones familiares.</p>
-                            </div>
-                            <aside class="property-card__side">
-                                <div class="property-card__price-clp">CLP $210.000.000</div>
-                                <div class="property-card__price-uf">UF 6.000</div>
-                                <div class="property-card__published">Publicado: 10/05/2026</div>
-                                <div class="property-card__admin-actions">
-                                    <button type="button">Editar</button>
-                                    <button type="button" class="property-card__delete">Borrar</button>
-                                </div>
-                            </aside>
-                        </div>
-                    </div>
-                </article>
-
-                <article class="property-card">
-                    <h3 class="property-card__title">Casa Avenida del Mar</h3>
-                    <div class="property-card__container">
-                        <a href="FrontEnd/property-detail.html?property=avenida" class="property-card__image-link">
-                            <img src="assets/img/casa4-serena.jpeg" alt="Casa en La Serena en Avenida del Mar" class="property-card__image" loading="lazy">
-                        </a>
-                        <div class="property-card__content">
-                            <div class="property-card__info">
-                                <div class="property-card__meta">
-                                    <span>2 dormitorios</span>
-                                    <span>2 baños</span>
-                                    <span>95 m²</span>
-                                    <span>Avenida del Mar</span>
-                                </div>
-                                <p class="property-card__description">Propiedad en excelente estado, muy bien ubicada cerca de la playa y con espacios luminosos para disfrutar en familia.</p>
-                            </div>
-                            <aside class="property-card__side">
-                                <div class="property-card__price-clp">CLP $85.000.000</div>
-                                <div class="property-card__price-uf">UF 2.430</div>
-                                <div class="property-card__published">Publicado: 26/04/2026</div>
-                                <div class="property-card__admin-actions">
-                                    <button type="button">Editar</button>
-                                    <button type="button" class="property-card__delete">Borrar</button>
-                                </div>
-                            </aside>
-                        </div>
-                    </div>
-                </article>
-
-                <article class="property-card">
-                    <h3 class="property-card__title">Casa Tierras Blancas</h3>
-                    <div class="property-card__container">
-                        <a href="FrontEnd/property-detail.html?property=tierrasblancas" class="property-card__image-link">
-                            <img src="assets/img/casa5-serena.jpeg" alt="Casa en La Serena en Tierras Blancas" class="property-card__image" loading="lazy">
-                        </a>
-                        <div class="property-card__content">
-                            <div class="property-card__info">
-                                <div class="property-card__meta">
-                                    <span>3 dormitorios</span>
-                                    <span>1 baño</span>
-                                    <span>130 m²</span>
-                                    <span>Tierras Blancas</span>
-                                </div>
-                                <p class="property-card__description">Ideal para familias, cuenta con patio, estacionamiento y una ubicación céntrica con buena conectividad.</p>
-                            </div>
-                            <aside class="property-card__side">
-                                <div class="property-card__price-clp">CLP $98.500.000</div>
-                                <div class="property-card__price-uf">UF 2.820</div>
-                                <div class="property-card__published">Publicado: 18/05/2026</div>
-                                <div class="property-card__admin-actions">
-                                    <button type="button">Editar</button>
-                                    <button type="button" class="property-card__delete">Borrar</button>
-                                </div>
-                            </aside>
-                        </div>
-                    </div>
-                </article>
-
-                <article class="property-card">
-                    <h3 class="property-card__title">Depto Puertas del Mar</h3>
-                    <div class="property-card__container">
-                        <a href="FrontEnd/property-detail.html?property=puertasdmar" class="property-card__image-link">
-                            <img src="assets/img/depa-serena.jpg" alt="Departamento en La Serena Puertas del Mar" class="property-card__image" loading="lazy">
-                        </a>
-                        <div class="property-card__content">
-                            <div class="property-card__info">
-                                <div class="property-card__meta">
-                                    <span>3 dormitorios</span>
-                                    <span>2 baños</span>
-                                    <span>105 m²</span>
-                                    <span>Puertas del Mar</span>
-                                </div>
-                                <p class="property-card__description">Departamento con terminaciones de calidad y acceso rápido a servicios, ideal para inversionistas o familias pequeñas.</p>
-                            </div>
-                            <aside class="property-card__side">
-                                <div class="property-card__price-clp">CLP $105.200.000</div>
-                                <div class="property-card__price-uf">UF 3.018</div>
-                                <div class="property-card__published">Publicado: 03/05/2026</div>
-                                <div class="property-card__admin-actions">
-                                    <button type="button">Editar</button>
-                                    <button type="button" class="property-card__delete">Borrar</button>
-                                </div>
-                            </aside>
-                        </div>
-                    </div>
-                </article>
-
-                <article class="property-card">
-                    <h3 class="property-card__title">Depto Avenida del Mar</h3>
-                    <div class="property-card__container">
-                        <a href="FrontEnd/property-detail.html?property=avdelmar" class="property-card__image-link">
-                            <img src="assets/img/depa2-serena.jpg" alt="Departamento en La Serena Avenida del Mar" class="property-card__image" loading="lazy">
-                        </a>
-                        <div class="property-card__content">
-                            <div class="property-card__info">
-                                <div class="property-card__meta">
-                                    <span>2 dormitorios</span>
-                                    <span>2 baños</span>
-                                    <span>90 m²</span>
-                                    <span>Avenida del Mar</span>
-                                </div>
-                                <p class="property-card__description">Excelente oportunidad a pasos del mar con espacios abiertos, ideal para vivir o arrendar a corta temporada.</p>
-                            </div>
-                            <aside class="property-card__side">
-                                <div class="property-card__price-clp">CLP $96.300.000</div>
-                                <div class="property-card__price-uf">UF 2.760</div>
-                                <div class="property-card__published">Publicado: 09/05/2026</div>
-                                <div class="property-card__admin-actions">
-                                    <button type="button">Editar</button>
-                                    <button type="button" class="property-card__delete">Borrar</button>
-                                </div>
-                            </aside>
-                        </div>
-                    </div>
-                </article>
-
-                <script type="application/ld+json">
-                {
-                    "@context": "https://schema.org",
-                    "@type": "RealEstateListing",
-                    "name": "Casa en La Serena el Milagro",
-                    "description": "Casa moderna en venta en La Serena, sector El Milagro.",
-                    "image": "assets/img/casa-serena.jpg",
-                    "offers": {
-                        "@type": "Offer",
-                        "price": "154000000",
-                        "priceCurrency": "CLP",
-                        "availability": "https://schema.org/InStock"
-                    },
-                    "address": {
-                        "@type": "PostalAddress",
-                        "addressLocality": "La Serena",
-                        "addressRegion": "Coquimbo",
-                        "addressCountry": "CL"
-                    },
-                    "propertyType": "Casa"
-                }
-            </script>
-            </section>
+        <section aria-labelledby="propiedades-heading">
+            <h2 id="propiedades-heading">Propiedades Destacadas en La Serena</h2>
+            <div id="properties-container" class="propiedades-list">
+                <p>Cargando propiedades destacadas...</p>
+            </div>
         </section>
-
-
     </main>
 
     <footer role="contentinfo">
@@ -299,13 +72,72 @@
     </footer>
 
     <script>
-        // Sincronizar aria-expanded con el estado del checkbox del menú
-        const dashboardCheckbox = document.getElementById('btn-dashboard');
-        if (dashboardCheckbox) {
-            dashboardCheckbox.addEventListener('change', function () {
-                this.setAttribute('aria-expanded', this.checked ? 'true' : 'false');
-            });
-        }
+        document.addEventListener('DOMContentLoaded', async function () {
+            const container = document.getElementById('properties-container');
+
+            try {
+                // Llamamos a nuestro nuevo endpoint público
+                const response = await fetch('BackEnd/api/get_properties.php');
+                const result = await response.json();
+
+                if (!response.ok || !result.success) {
+                    container.innerHTML = '<p>No se pudieron cargar las propiedades en este momento.</p>';
+                    return;
+                }
+
+                const propiedades = result.data;
+
+                if (propiedades.length === 0) {
+                    container.innerHTML = '<p>No hay propiedades destacadas disponibles en este momento.</p>';
+                    return;
+                }
+
+                container.innerHTML = '';
+
+                propiedades.forEach(prop => {
+                    const imagenRuta = prop.main_image
+                        ? `/uploads/propiedades/${prop.main_image}`
+                        : 'assets/img/casa-serena.jpg';
+
+                    const fecha = new Date(prop.fecha_publicacion).toLocaleDateString('es-CL');
+
+                    const card = document.createElement('article');
+                    card.className = 'property-card';
+                    card.innerHTML = `
+                        <h3 class="property-card__title">${prop.tipo.toUpperCase()} - ${prop.sector}</h3>
+                        <div class="property-card__container">
+                            <a href="FrontEnd/property-detail.php?property=${prop.id}" class="property-card__image-link">
+                                <img src="${imagenRuta}" alt="${prop.tipo} en ${prop.sector}" class="property-card__image" loading="lazy">
+                            </a>
+                            <div class="property-card__content">
+                                <div class="property-card__info">
+                                    <div class="property-card__meta">
+                                        <span>${prop.dormitorios} dormitorios</span>
+                                        <span>${prop.banos} baños</span>
+                                        <span>${parseInt(prop.area_construida)} m²</span>
+                                        <span>${prop.comuna}</span>
+                                    </div>
+                                    <p class="property-card__description">${prop.descripcion}</p>
+                                </div>
+                                <aside class="property-card__side">
+                                    <div class="property-card__price-clp">CLP $${parseInt(prop.precio_clp).toLocaleString('es-CL')}</div>
+                                    <div class="property-card__price-uf">UF ${parseInt(prop.precio_uf).toLocaleString('es-CL')}</div>
+                                    <div class="property-card__published">Publicado: ${fecha}</div>
+                                    <div class="property-card__admin-actions">
+                                        <button type="button">Editar</button>
+                                        <button type="button" class="property-card__delete">Borrar</button>
+                                    </div>
+                                </aside>
+                            </div>
+                        </div>
+                    `;
+                    container.appendChild(card);
+                });
+
+            } catch (error) {
+                container.innerHTML = '<p>Error de conexión al cargar las propiedades destacadas.</p>';
+            }
+        });
     </script>
 </body>
 

@@ -34,7 +34,14 @@ if(isset($_FILES['certificado']) && $_FILES['certificado']['error'] === UPLOAD_E
     }
 
     $file_name = uniqid('cert_') . '.pdf';
-    $upload_dir = '../../FronEnd/certificados/' . $file_name;
+
+    // ✅ CORRECTO
+    $root = dirname(__DIR__, 2);
+    $upload_dir = $root . '/uploads/pdf/';
+    if (!is_dir($upload_dir)) mkdir($upload_dir, 0755, true);
+    $file_path = $upload_dir . $file_name;
+    // Guardar en BD la ruta relativa:
+    $cert_path = 'uploads/pdf/' . $file_name;
 }
 
 // init connection and create user

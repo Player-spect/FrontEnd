@@ -1,5 +1,10 @@
-
-<?php require_once '../../BackEnd/includes/navegacion.php'; ?>
+<?php
+session_start();
+if (isset($_SESSION['user_id'])) {
+    header("Location: ../FrontEnd/dashboard/dashboard-" . $_SESSION['user_rol'] . ".php");
+    exit;
+}
+?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -61,7 +66,7 @@
             <button type="submit">Iniciar Sesión</button>
         </form>
 
-        <p><a href="password-recovery.html">¿Olvidaste tu contraseña?</a></p>
+        <p><a href="password-recovery.php">¿Olvidaste tu contraseña?</a></p>
         <p>¿No tienes cuenta?
             <a href="register/register-gestor.html">Regístrate como Gestor</a>
             o

@@ -1,4 +1,4 @@
-<?php require_once '../../BackEnd/includes/navbar.php'; ?>
+<?php require_once '../BackEnd/includes/navegacion.php'; ?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -16,7 +16,7 @@
     <nav aria-label="Navegación principal">
         <ul>
             <li><a href="../index.html">Inicio</a></li>
-            <li><a href="login.html">Iniciar Sesión</a></li>
+            <li><a href="login.php">Iniciar Sesión</a></li>
             <li><a href="register/register-gestor.html">Registrar Gestor</a></li>
             <li><a href="register/register-propietario.html">Registrar Propietario</a></li>
         </ul>
@@ -51,7 +51,7 @@
                 </div>
                 <p class="property-description" id="detail-description"></p>
                 <p class="property-detail-actions">
-                    <a id="detail-back" href="login.html">Agendar una visita</a>
+                    <a id="detail-back" href="login.php">Agendar una visita</a>
                 </p>
             </div>
         </div>

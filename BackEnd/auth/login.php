@@ -5,6 +5,7 @@ require_once "../config/database.php";
 
 header('Content-Type: application/json');
 
+
 // Vallida y verifica que la solicitud solo sea por POST
 if ($_SERVER['REQUEST_METHOD'] !== 'POST'){
 	http_response_code(405);

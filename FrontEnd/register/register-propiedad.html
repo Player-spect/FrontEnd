@@ -20,7 +20,7 @@
         <ul>
             <li><a href="../../index.html">Inicio</a></li>
             <li><a href="../dashboard.php">Dashboard</a></li>
-            <li><a href="../login.html">Cerrar Sesión</a></li>
+            <li><a href="../login.php">Cerrar Sesión</a></li>
         </ul>
     </nav>
 </header>
@@ -229,6 +229,7 @@
         const precioUf = document.getElementById('precio-uf');
         const fechaPublicacion = document.getElementById('fecha-publicacion');
         const form = document.getElementById('register-propiedad-form');
+
         const formMessages = document.getElementById('form-messages');
         const checkboxNames = [
             'bodega',
@@ -243,6 +244,56 @@
             return document.querySelector('input[name="' + name + '"]');
         }).filter(Boolean);
         let valorUf = null;
+        // --- LÓGICA DE EDICIÓN ---
+        const urlParams = new URLSearchParams(window.location.search);
+        const editId = urlParams.get('edit');
+
+        if (editId) {
+            document.getElementById('form-heading').textContent = 'Editar Propiedad';
+            const submitBtn = form.querySelector('button[type="submit"]');
+            submitBtn.textContent = 'Actualizar Propiedad';
+
+            // Buscar datos y rellenar
+            fetch(`../../BackEnd/api/get_property_detail.php?id=${editId}`)
+                .then(res => res.json())
+                .then(result => {
+                    if (result.success) {
+                        const p = result.data;
+                        document.getElementById('tipo').value = p.tipo;
+                        document.getElementById('descripcion').value = p.descripcion;
+                        document.getElementById('dormitorios').value = p.dormitorios;
+                        document.getElementById('banos').value = p.banos;
+                        document.getElementById('area-construida').value = p.area_construida;
+                        document.getElementById('area-terreno').value = p.area_terreno;
+                        document.getElementById('precio-clp').value = p.precio_clp;
+                        document.getElementById('precio-uf').value = p.precio_uf;
+                        document.getElementById('fecha-publicacion').value = p.fecha_publicacion;
+                        document.getElementById('provincia').value = p.provincia;
+                        document.getElementById('comuna').value = p.comuna;
+                        document.getElementById('sector').value = p.sector;
+
+                        // Checkboxes
+                        if(p.bodega) document.querySelector('input[name="bodega"]').checked = true;
+                        if(p.estacionamiento) document.querySelector('input[name="estacionamiento"]').checked = true;
+                        if(p.logia) document.querySelector('input[name="logia"]').checked = true;
+                        if(p.cocina_amoblada) document.querySelector('input[name="cocina-amoblada"]').checked = true;
+                        if(p.antejardin) document.querySelector('input[name="antejardin"]').checked = true;
+                        if(p.patio_trasero) document.querySelector('input[name="patio-trasero"]').checked = true;
+                        if(p.piscina) document.querySelector('input[name="piscina"]').checked = true;
+
+                        // Campo oculto para enviar el ID al backend
+                        const idInput = document.createElement('input');
+                        idInput.type = 'hidden';
+                        idInput.name = 'id';
+                        idInput.value = p.id;
+                        form.appendChild(idInput);
+
+                        // Hacemos que la foto no sea obligatoria al editar (para no borrarla si no suben una nueva)
+                        document.getElementById('fotos').required = false;
+                    }
+                });
+        }
+
 
         function showMessage(message) {
             if (!formMessages) {
@@ -306,9 +357,7 @@
         }
 
         function validarCaracteristicas() {
-            return checkboxes.every(function (checkbox) {
-                return checkbox.checked;
-            });
+            return true;
         }
 
         function validarFormulario() {
@@ -319,9 +368,6 @@
                 return false;
             }
             if (!validarFecha(fechaPublicacion.value)) {
-                return false;
-            }
-            if (!validarCaracteristicas()) {
                 return false;
             }
             return true;
@@ -335,7 +381,7 @@
 
         if (form) {
             checkboxes.forEach(function (checkbox) {
-                checkbox.required = true;
+                checkbox.required = false;
                 checkbox.setAttribute('aria-required', 'true');
             });
 
@@ -390,10 +436,10 @@
 
                 // Recopilamos todos los datos y añadimos la acción para el PHP
                 const formData = new FormData(form);
-                formData.append('action', 'create');
+                formData.append('action', editId ? 'update' : 'create');
 
                 try {
-                    const response = await fetch('../../BackEnd/api/property_crud.php', {
+                    const response = await fetch('../../BackEnd/api/properties_crud.php', {
                         method: 'POST',
                         body: formData
                     });
