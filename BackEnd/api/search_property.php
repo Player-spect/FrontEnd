@@ -1,31 +1,31 @@
 <?php
+ini_set('display_errors', 0);
 require_once '../config/database.php';
 header('Content-Type: application/json');
 
-$query = $_GET['q'] ?? '';
+$provincia = $_GET['provincia'] ?? '';
+$comuna = $_GET['comuna'] ?? '';
+$sector = $_GET['sector'] ?? '';
 
-if (empty($query)) {
+if (empty($provincia) && empty($comuna) && empty($sector)) {
     echo json_encode(['success' => false, 'results' => []]);
     exit;
 }
-
 try {
     $conn = getConnection();
-
-
-
     $stmt = $conn->prepare("
-        SELECT id, tipo, descripcion, precio_clp, provincia, comuna, sector, (SELECT ruta FROM fotos_propiedad WHERE propiedad_id = propiedades.id AND es_principal = 1 LIMIT 1) as foto
+        SELECT id, tipo, descripcion, precio_clp, provincia, comuna, sector 
         FROM propiedades
-        WHERE provincia LIKE :q OR comuna LIKE :q OR sector LIKE :q OR tipo LIKE :q
+        WHERE provincia LIKE :provincia OR comuna LIKE :comuna OR sector LIKE :sector
         LIMIT 20
     ");
-
-    $stmt->execute(['q' => '%' . $query . '%']);
+    $stmt->execute([
+        'provincia' => '%' . $provincia . '%',
+        'comuna' => '%' . $comuna . '%',
+        'sector' => '%' . $sector . '%'
+    ]);
     $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
     echo json_encode(['success' => true, 'results' => $results]);
-
 } catch(PDOException $e) {
     echo json_encode(['success' => false, 'message' => 'Error en búsqueda']);
 }

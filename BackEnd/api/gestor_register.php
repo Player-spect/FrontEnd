@@ -1,4 +1,5 @@
 <?php
+ini_set('display_errors', 0);
 require_once "../config/database.php";
 header("Content-Type: application/json");
 
@@ -11,7 +12,7 @@ if($_SERVER['REQUEST_METHOD'] !== 'POST'){
 // data of requests
 $rut = $_POST['rut'] ?? '';
 $nombre_completo = $_POST['nombre'] ?? '';
-$fechaNacimiento = $_POST['fechaNacimiento'] ?? '';
+$fechaNacimiento = $_POST['fecha-nacimiento'] ?? '';
 $email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL);
 $password = $_POST['password'] ?? '';
 $sexo = $_POST['sexo'] ?? '';
@@ -22,7 +23,7 @@ $telefono = $_POST['telefono'] ?? '';
 $password = password_hash($password, PASSWORD_BCRYPT);
 
 
-# Validate pdf
+// Validate pdf
 $cert_path = null;
 if(isset($_FILES['certificado']) && $_FILES['certificado']['error'] === UPLOAD_ERR_OK){
     $type = strtolower(pathinfo($_FILES['certificado']['name'], PATHINFO_EXTENSION));
@@ -32,7 +33,7 @@ if(isset($_FILES['certificado']) && $_FILES['certificado']['error'] === UPLOAD_E
         exit();
     }
 
-    $file_name = uniqid('cert_' . '.pdf');
+    $file_name = uniqid('cert_') . '.pdf';
     $upload_dir = '../../FronEnd/certificados/' . $file_name;
 }
 
@@ -41,7 +42,7 @@ try {
     $conn = getConnection();
     $query = $conn->prepare("
             INSERT INTO usuarios (rut, nombre, email, password_hash, rol, sexo, telefono, fecha_nacimiento, certificado_path, estado)
-            VALUES (:rut, :nombre, :email, :password, 'gestor', :sexo, :tel, :fecha, :cert, 'pendiente')
+            VALUES (:rut, :nombre, :email, :password, 'gestor', :sexo, :tel, :fecha, :cert, 'activo')
         ");
 
     $query->execute([
@@ -50,20 +51,20 @@ try {
         'email' => $email,
         'password' => $password,
         'sexo' => $sexo,
-        'telefono' => $telefono,
-        'fechaNacimiento' => $fechaNacimiento,
-        'certificado_path' => $upload_dir,
+        'tel' => $telefono,
+        'fecha' => $fechaNacimiento,
+        'cert' => $upload_dir,
     ]);
 
     echo json_encode(['success' => true, 'message' => 'Registro exitoso']);
 
 } catch(PDOException $e){
     if($e->getCode() == 23000){
-        echo json_encode(['success'=>false, 'message' => "Este usuario ya esta registrado"]);
+        echo json_encode(['success'=>false, 'message' => "No se puede registrar"]);
         http_response_code(409);
         exit();
     } else {
-        echo json_encode(['success' => false, 'message' => 'Error interno del Servidor.']);
+        echo json_encode(['success' => false, 'message' => 'Error interno del Servidor.' . $e->getMessage()]);
         http_response_code(500);
 
     }

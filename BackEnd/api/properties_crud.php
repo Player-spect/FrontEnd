@@ -1,4 +1,5 @@
 <?php
+ini_set('display_errors', 0);
 session_start();
 require_once "../config/database.php";
 header('Content-Type: application/json');
@@ -50,18 +51,18 @@ try {
                 'desc' => $_POST['descripcion'] ?? 'Sin Descripcion',
                 'dorm' => $_POST['dormitorios'],
                 'banos' => $_POST['banos'],
-                'area_c' => $_POST['area_construida'],
-                'area_t' => $_POST['area_terreno'],
-                'precio_clp' => $_POST['precio_clp'],
-                'precio_uf' => $_POST['precio_uf'],
+                'area_c' => $_POST['area-construida'],
+                'area_t' => $_POST['area-terreno'],
+                'precio_clp' => $_POST['precio-clp'],
+                'precio_uf' => $_POST['precio-uf'],
                 'fecha' => date('Y-m-d'),
-                'visita' => isset($_POST['solicitar_visita']) ? 1 : 0,
+                'visita' => isset($_POST['solicitar-visita']) ? 1 : 0,
                 'bodega' => isset($_POST['bodega']) ? 1 : 0,
                 'estac' => isset($_POST['estacionamiento']) ? 1 : 0,
                 'logia' => isset($_POST['logia']) ? 1 : 0,
-                'cocina' => isset($_POST['cocina_amoblada']) ? 1 : 0,
+                'cocina' => isset($_POST['cocina-amoblada']) ? 1 : 0,
                 'ante' => isset($_POST['antejardin']) ? 1 : 0,
-                'patio' => isset($_POST['patio_trasero']) ? 1 : 0,
+                'patio' => isset($_POST['patio-trasero']) ? 1 : 0,
                 'piscina' => isset($_POST['piscina']) ? 1 : 0,
                 'prov' => $_POST['provincia'],
                 'com' => $_POST['comuna'],
@@ -121,10 +122,10 @@ try {
                     'desc' => $_POST['descripcion'],
                     'dorm' => $_POST['dormitorios'],
                     'banos' => $_POST['banos'],
-                    'area_c' => $_POST['area_construida'],
-                    'area_t' => $_POST['area_terreno'],
-                    'precio_clp' => $_POST['precio_clp'],
-                    'precio_uf' => $_POST['precio_uf'],
+                    'area_c' => $_POST['area-construida'],
+                    'area_t' => $_POST['area-terreno'],
+                    'precio_clp' => $_POST['precio-clp'],
+                    'precio_uf' => $_POST['precio-uf'],
                     'provincia' => $_POST['provincia'],
                     'comuna' => $_POST['comuna'],
                     'sector' => $_POST['sector'],
@@ -137,7 +138,7 @@ try {
         case 'delete':
             // Eliminacion de Propiedad
             $id = $_POST['id'] ?? $_GET['id'];
-            $photo_dir = '../../Evaluacion2/uploads/propiedades/';
+            $photo_dir = '../../FrontEnd/uploads/propiedades/';
 
             // Delete Photos
             $stmt_dir = $conn->prepare("SELECT ruta FROM fotos_propiedad WHERE propiedad_id = :id");

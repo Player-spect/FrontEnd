@@ -570,7 +570,7 @@ button {
 }
 
 button:hover {
-    background-color: var(--color-accent-hover);
+    background-color: #0044cccc;
 }
 
 .property-search {
@@ -690,7 +690,6 @@ a {
 }
 
 a:hover {
-    color: var(--color-accent-hover);
     text-decoration-thickness: 2px;
 }
 
@@ -792,7 +791,7 @@ footer p {
 
 .card a:hover,
 .card button:hover {
-    background-color: var(--color-accent-hover);
+    background-color: #0044cccc;
     text-decoration: underline;
 }
 

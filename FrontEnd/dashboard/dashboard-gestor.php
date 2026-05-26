@@ -1,14 +1,16 @@
+<?php require_once '../../BackEnd/includes/session_checker.php'; ?>
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PNK Inmobiliaria - Dashboard Propietario</title>
-    <meta name="description" content="Dashboard para propietarios en PNK Inmobiliaria. Gestiona y publica tus propiedades en venta y alquiler en la Región de Coquimbo.">
-    <meta name="keywords" content="dashboard propietario inmobiliaria, gestionar propiedades Coquimbo, panel propietario PNK">
+    <title>PNK Inmobiliaria - Dashboard Gestor Inmobiliario</title>
+    <meta name="description" content="Dashboard para gestores inmobiliarios en PNK Inmobiliaria. Gestiona propiedades en venta y alquiler en la Región de Coquimbo.">
+    <meta name="keywords" content="dashboard gestor inmobiliario, gestionar propiedades Coquimbo, panel gestor PNK">
     <meta name="author" content="PNK Inmobiliaria">
     <meta name="robots" content="noindex, nofollow">
-    <link rel="canonical" href="https://www.pnk-inmobiliaria.cl/dashboard/dashboard-propietario.html">
+    <link rel="canonical" href="https://www.pnk-inmobiliaria.cl/dashboard/dashboard-gestor.html">
     <link rel="stylesheet" href="../css/styles.css">
 </head>
 <body>
@@ -19,7 +21,7 @@
     <nav aria-label="Navegación principal">
         <ul>
             <li><a href="../../index.html">Inicio</a></li>
-            <li><a href="dashboard-propietario.html" aria-current="page">Dashboard</a></li>
+            <li><a href="dashboard-gestor.html" aria-current="page">Dashboard</a></li>
             <li><a href="../login.html">Cerrar Sesión</a></li>
         </ul>
     </nav>
@@ -27,19 +29,19 @@
 
 <main id="main-content" role="main">
     <section aria-labelledby="dashboard-title">
-        <h2 id="dashboard-title">Control de Propiedades</h2>
+        <h2 id="dashboard-title">Gestión de Propiedades</h2>
         <div class="dashboard" role="region" aria-labelledby="dashboard-title">
             <article class="card">
                 <h3>Registrar Propiedad</h3>
                 <a href="../register/register-propiedad.html">Ir a Registrar</a>
             </article>
             <article class="card">
-                <h3>Mis Propiedades</h3>
-                <a href="#" aria-disabled="true">Ver Mis Propiedades</a>
+                <h3>Ofertar Propiedades</h3>
+                <a href="#" aria-disabled="true">Ver Propiedades Disponibles</a>
             </article>
             <article class="card">
-                <h3>Editar Propiedad</h3>
-                <a href="#" aria-disabled="true">Gestionar Propiedades</a>
+                <h3>Mis Ofertas</h3>
+                <a href="#" aria-disabled="true">Ver Mis Ofertas</a>
             </article>
             <article class="card">
                 <h3>Perfil</h3>

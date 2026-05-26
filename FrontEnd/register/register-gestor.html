@@ -100,11 +100,11 @@
                 Certificado de Antecedentes: <span aria-hidden="true">*</span>
             </label>
             <input type="file" id="certificado" name="certificado"
-                   accept=".pdf,.jpg,.jpeg,.png"
+                   accept=".pdf"
                    required
                    aria-required="true"
                    aria-describedby="certificado-help">
-            <span id="certificado-help" class="sr-only">Sube tu certificado de antecedentes en formato PDF, JPG o PNG. Tamaño máximo: 5 MB.</span>
+            <span id="certificado-help" class="sr-only">Sube tu certificado de antecedentes en formato PDF. Tamaño máximo: 5 MB.</span>
 
             <button type="submit">Registrar</button>
         </form>
@@ -180,13 +180,6 @@
             return /\.pdf$/i.test(file.name);
         }
 
-        async function hashPassword(password) {
-            const encoder = new TextEncoder();
-            const data = encoder.encode(password);
-            const hashBuffer = await crypto.subtle.digest('SHA-256', data);
-            return Array.from(new Uint8Array(hashBuffer)).map(byte => byte.toString(16).padStart(2, '0')).join('');
-        }
-
         async function handleSubmit(event) {
             event.preventDefault();
             if (!rutField || !validarRut(rutField.value)) {
@@ -209,10 +202,43 @@
                 showError('El archivo de certificado debe seleccionarse y debe ser un PDF válido.');
                 return;
             }
-            if (passwordField.value) {
-                passwordField.value = await hashPassword(passwordField.value);
+            const submitBtn = form.querySelector('button[type="submit"]');
+
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Registrando...';
+
+            const formData = new FormData(form);
+
+            try {
+                const response = await fetch('../../BackEnd/api/gestor_register.php', {
+                    method: 'POST',
+                    body: formData
+                });
+
+
+                const result = await response.json();
+
+                if (response.ok && result.success) {
+                    // Éxito: Mostrar alerta y redirigir
+                    Swal.fire({
+                        icon: 'success',
+                        title: '¡Registro Exitoso!',
+                        text: result.message,
+                        confirmButtonText: 'Ir a Iniciar Sesión'
+                    }).then(() => {
+                        window.location.href = '../login.html';
+                    });
+                } else {
+                    // Error del servidor (ej. Usuario ya existe)
+                    showError(result.message || 'Ocurrió un error en el registro.');
+                    submitBtn.disabled = false;
+                    submitBtn.textContent = 'Registrar';
+                }
+            } catch (error) {
+                showError( 'Ocurrió un error en el registro.');
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'Registrar';
             }
-            form.submit();
         }
 
         if (form) {

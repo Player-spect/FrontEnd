@@ -1,3 +1,5 @@
+<?php require_once '../../BackEnd/includes/session_checker.php'; ?>
+
 <!DOCTYPE html>
 <html lang="es">
 <head>

@@ -222,7 +222,7 @@
 
 
 <!-- CALCULO UF AUTOMATICOO -->
-
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
     document.addEventListener('DOMContentLoaded', function () {
         const precioClp = document.getElementById('precio-clp');
@@ -339,26 +339,80 @@
                 checkbox.setAttribute('aria-required', 'true');
             });
 
-            form.addEventListener('submit', function (event) {
-                clearMessage();
+      // Funciones auxiliares para SweetAlert2
+            function showError(message) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Aviso',
+                    text: message,
+                    confirmButtonText: 'Aceptar'
+                });
+            }
+
+            function showSuccess(message) {
+                return Swal.fire({
+                    icon: 'success',
+                    title: '¡Excelente!',
+                    text: message,
+                    confirmButtonText: 'Aceptar'
+                });
+            }
+
+            form.addEventListener('submit', async function (event) {
+                // 1. Detenemos la recarga de la página
+                event.preventDefault();
+
+                // 2. Validaciones del frontend con SweetAlert2
                 if (!validarFormulario()) {
-                    event.preventDefault();
                     if (!form.checkValidity()) {
                         form.reportValidity();
                     }
                     if (!precioUf.value || Number(precioUf.value) <= 0) {
-                        showMessage('El precio en UF debe calcularse automáticamente a partir del precio en CLP.');
+                        showError('El precio en UF debe calcularse automáticamente a partir del precio en CLP.');
                         return;
                     }
                     if (!validarFecha(fechaPublicacion.value)) {
-                        showMessage('La fecha de publicación es obligatoria y debe tener un formato de fecha válido.');
+                        showError('La fecha de publicación es obligatoria y debe tener un formato de fecha válido.');
                         return;
                     }
                     if (!validarCaracteristicas()) {
-                        showMessage('Debes marcar todas las características adicionales obligatorias: bodega, estacionamiento, logia, cocina amoblada, antejardín, patio trasero y piscina.');
+                        showError('Debes marcar todas las características adicionales obligatorias.');
                         return;
                     }
-                    showMessage('Completa todos los campos obligatorios antes de registrar la propiedad.');
+                    showError('Completa todos los campos obligatorios antes de registrar la propiedad.');
+                    return;
+                }
+
+                // 3. Preparar el envío al backend
+                const submitBtn = form.querySelector('button[type="submit"]');
+                submitBtn.disabled = true;
+                submitBtn.textContent = 'Subiendo y Registrando...';
+
+                // Recopilamos todos los datos y añadimos la acción para el PHP
+                const formData = new FormData(form);
+                formData.append('action', 'create');
+
+                try {
+                    const response = await fetch('../../BackEnd/api/property_crud.php', {
+                        method: 'POST',
+                        body: formData
+                    });
+
+                    const result = await response.json();
+
+                    if (response.ok && result.success) {
+                        await showSuccess('La propiedad ha sido registrada exitosamente.');
+                        form.reset();
+                        precioUf.value = '';
+
+                    } else {
+                        showError(result.message || 'Ocurrió un error al registrar la propiedad.');
+                    }
+                } catch (error) {
+                    showError('Error de conexión con el servidor. Inténtalo más tarde.');
+                } finally {
+                    submitBtn.disabled = false;
+                    submitBtn.textContent = 'Registrar Propiedad';
                 }
             });
 
