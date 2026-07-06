@@ -564,5 +564,74 @@
         }
     });
 </script>
+<script>
+(function () {
+    const searchProvincia = document.getElementById('search-provincia');
+    const searchComuna = document.getElementById('search-comuna');
+    const searchSector = document.getElementById('search-sector');
+    const searchResults = document.getElementById('search-results');
+
+    if (!searchProvincia || !searchComuna || !searchSector || !searchResults) {
+        return;
+    }
+
+    function renderLiveResults(results) {
+        if (!Array.isArray(results) || results.length === 0) {
+            searchResults.innerHTML = '<p>No se encontró ningún inmueble.</p>';
+            return;
+        }
+
+        const cards = results.map(function (item) {
+            return '<article class="search-card"><h4>' + (item.tipo || 'Propiedad') + '</h4><p><strong>Descripción:</strong> ' + (item.descripcion || '') + '</p><p><strong>Provincia:</strong> ' + (item.provincia || '') + '</p><p><strong>Comuna:</strong> ' + (item.comuna || '') + '</p><p><strong>Sector:</strong> ' + (item.sector || '') + '</p><p><strong>Precio:</strong> ' + (item.precio_clp || '') + '</p></article>';
+        }).join('');
+
+        searchResults.innerHTML = cards;
+    }
+
+    function runLiveSearch() {
+        const provinciaValor = (searchProvincia.value || '').trim();
+        const comunaValor = (searchComuna.value || '').trim();
+        const sectorValor = (searchSector.value || '').trim();
+
+        if (!provinciaValor && !comunaValor && !sectorValor) {
+            searchResults.innerHTML = '';
+            return;
+        }
+
+        searchResults.innerHTML = '<p>Cargando resultados...</p>';
+
+        const query = new URLSearchParams({
+            provincia: provinciaValor,
+            comuna: comunaValor,
+            sector: sectorValor
+        });
+
+        fetch('../../BackEnd/api/search_property_live.php?' + query.toString())
+            .then(function (response) {
+                return response.json();
+            })
+            .then(function (data) {
+                if (data && data.success && Array.isArray(data.results)) {
+                    renderLiveResults(data.results);
+                } else {
+                    searchResults.innerHTML = '<p>No se encontró ningún inmueble.</p>';
+                }
+            })
+            .catch(function () {
+                searchResults.innerHTML = '<p>Error al buscar inmuebles. Intenta nuevamente.</p>';
+            });
+    }
+
+    let timeoutId;
+    function triggerLiveSearch() {
+        clearTimeout(timeoutId);
+        timeoutId = setTimeout(runLiveSearch, 200);
+    }
+
+    [searchProvincia, searchComuna, searchSector].forEach(function (input) {
+        input.addEventListener('input', triggerLiveSearch);
+    });
+})();
+</script>
 </body>
 </html>
