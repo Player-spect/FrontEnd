@@ -16,21 +16,9 @@
 <body>
 <a href="#main-content" class="skip-link">Saltar al contenido principal</a>
 
-<header role="banner">
-    <h1>PNK Inmobiliaria</h1>
-    <nav aria-label="Navegación principal">
-        <ul>
-            <li><a href="../index.html">Inicio</a></li>
-            <li><a href="dashboard.php" aria-current="page">Dashboard</a></li>
-            <li><a href="login.php">Cerrar Sesión</a></li>
-        </ul>
-    </nav>
-</header>
-
 <main id="main-content" role="main">
     <section aria-labelledby="dashboard-heading">
         <h2 id="dashboard-heading">Dashboard</h2>
-        <?php include 'dashboard-search-widget.php'; ?>
         <div class="dashboard" role="region" aria-labelledby="dashboard-heading">
             <article class="card">
                 <h3>Registrar Propiedad</h3>

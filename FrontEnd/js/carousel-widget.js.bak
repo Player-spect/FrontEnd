@@ -1,0 +1,102 @@
+document.addEventListener('DOMContentLoaded', async function () {
+  const cardWrappers = document.querySelectorAll('.property-card__image-wrapper');
+
+  if (!cardWrappers.length) return;
+
+  async function fetchPropertyImages(propertyId) {
+    try {
+      const response = await fetch(`../BackEnd/api/get_property_images.php?id=${propertyId}`);
+      const json = await response.json();
+      if (!response.ok || !json.success || !Array.isArray(json.images)) return [];
+      return json.images;
+    } catch (error) {
+      console.error('Error fetching property images', error);
+      return [];
+    }
+  }
+
+  cardWrappers.forEach(async (wrapper) => {
+    const propertyId = wrapper.dataset.propertyId;
+    if (!propertyId) return;
+
+    const overlay = wrapper.querySelector('.property-card__carousel-overlay');
+    const track = wrapper.querySelector('.property-card__carousel-track');
+    const leftButton = wrapper.querySelector('.property-card__carousel-control--left');
+    const rightButton = wrapper.querySelector('.property-card__carousel-control--right');
+    let currentIndex = 0;
+    let intervalId = null;
+    let images = await fetchPropertyImages(propertyId);
+
+    if (!images.length) {
+      overlay.style.display = 'none';
+      return;
+    }
+
+    function renderSlides() {
+      track.innerHTML = '';
+      images.forEach((imageSrc) => {
+        const slide = document.createElement('div');
+        slide.className = 'property-card__carousel-slide';
+        slide.innerHTML = `<img src="../uploads/propiedades/${imageSrc}" alt="Foto de propiedad" loading="lazy">`;
+        track.appendChild(slide);
+      });
+    }
+
+    function updatePosition() {
+      const width = wrapper.clientWidth;
+      track.style.transform = `translateX(-${currentIndex * width}px)`;
+    }
+
+    function moveRight() {
+      currentIndex = (currentIndex + 1) % images.length;
+      updatePosition();
+    }
+
+    function moveLeft() {
+      currentIndex = (currentIndex - 1 + images.length) % images.length;
+      updatePosition();
+    }
+
+    function startAutoScroll() {
+      stopAutoScroll();
+      intervalId = setInterval(moveRight, 2500);
+    }
+
+    function stopAutoScroll() {
+      if (intervalId) {
+        clearInterval(intervalId);
+        intervalId = null;
+      }
+    }
+
+    renderSlides();
+    updatePosition();
+
+    wrapper.addEventListener('mouseenter', () => {
+      wrapper.classList.add('carousel-active');
+      overlay.style.opacity = '1';
+      startAutoScroll();
+    });
+
+    wrapper.addEventListener('mouseleave', () => {
+      wrapper.classList.remove('carousel-active');
+      stopAutoScroll();
+      currentIndex = 0;
+      updatePosition();
+    });
+
+    leftButton.addEventListener('click', (event) => {
+      event.preventDefault();
+      moveLeft();
+      startAutoScroll();
+    });
+
+    rightButton.addEventListener('click', (event) => {
+      event.preventDefault();
+      moveRight();
+      startAutoScroll();
+    });
+
+    window.addEventListener('resize', updatePosition);
+  });
+});

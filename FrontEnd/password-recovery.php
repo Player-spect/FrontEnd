@@ -23,7 +23,7 @@
         <ul>
             <li><a href="../index.html">Inicio</a></li>
             <li><a href="login.php">Iniciar Sesión</a></li>
-            <li><a href="register/register-gestor.html">Registrar Gestor</a></li>
+            <li><a href="register/register-gestor.html">Registrar</a></li>
             <li><a href="register/register-propietario.html">Registrar Propietario</a></li>
         </ul>
     </nav>

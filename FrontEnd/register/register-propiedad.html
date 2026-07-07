@@ -29,31 +29,6 @@
     <section aria-labelledby="form-heading">
         <h2 id="form-heading">Registrar Propiedad</h2>
 
-        <div class="property-search-layout">
-            <div class="property-search" role="search" aria-labelledby="search-heading">
-                <h3 id="search-heading">Buscar Propiedad por Provincia, Comuna o Sector</h3>
-                <div class="property-search__fields">
-                <div class="property-search__field">
-                    <label for="search-provincia">Provincia</label>
-                    <input type="text" id="search-provincia" name="search-provincia" autocomplete="address-level2" placeholder="Ej: Elqui">
-                </div>
-                <div class="property-search__field">
-                    <label for="search-comuna">Comuna</label>
-                    <input type="text" id="search-comuna" name="search-comuna" autocomplete="address-level3" placeholder="Ej: Coquimbo">
-                </div>
-                <div class="property-search__field">
-                    <label for="search-sector">Sector</label>
-                    <input type="text" id="search-sector" name="search-sector" placeholder="Ej: Peñuelas">
-                </div>
-                <div class="property-search__action">
-                    <button type="button" id="search-button">Buscar inmueble</button>
-                </div>
-            </div>
-            <div id="search-results" class="search-results" aria-live="polite" aria-atomic="true"></div>
-        </div>
-        <div class="property-form-container">
-        <div id="form-messages" role="alert" aria-live="assertive" aria-atomic="true" class="sr-only"></div>
-
         <form id="register-propiedad-form" action="#" method="post" novalidate enctype="multipart/form-data"
               aria-labelledby="form-heading">
             <p class="sr-only">Los campos marcados con * son obligatorios.</p>
@@ -249,7 +224,7 @@
         const editId = urlParams.get('edit');
 
         if (editId) {
-            document.getElementById('form-heading').textContent = 'Editar Propiedad';
+            document.getElementById('form-heading').textContent = 'Propiedad';
             const submitBtn = form.querySelector('button[type="submit"]');
             submitBtn.textContent = 'Actualizar Propiedad';
 

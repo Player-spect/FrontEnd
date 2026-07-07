@@ -66,7 +66,7 @@
 
   function selectSuggestion(item) {
     // Intentar ir a la página de detalle (ruta relativa usada en dashboard)
-    const target = '../property-detail.php?id=' + encodeURIComponent(item.id);
+    const target = '../FrontEnd/property-detail.php?property=' + encodeURIComponent(item.id);
     window.location.href = target;
   }
 

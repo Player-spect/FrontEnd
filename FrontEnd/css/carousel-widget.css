@@ -1,0 +1,39 @@
+/* Altura de la imagen principal para mantener consistencia en las tarjetas */
+.property-card__image-wrapper {
+  position: relative;
+  overflow: hidden;
+  height: 250px; /* Puedes ajustar esta altura a tu gusto (ej: 300px) */
+  background-color: #f8f9fa; /* Fondo gris claro mientras carga */
+  border-radius: 4px 4px 0 0; /* Bordes redondeados opcionales */
+}
+
+/* Sombra ligera para que las flechas blancas de Bootstrap destaquen sobre fotos muy claras */
+.carousel-inner::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(0,0,0,0.1), transparent 20%, transparent 80%, rgba(0,0,0,0.2));
+  pointer-events: none;
+}
+
+/* Rediseño ligero para que los botones de Bootstrap se vean idénticos a los que tenías antes (círculos oscuros) */
+.property-card__image-wrapper .carousel-control-prev,
+.property-card__image-wrapper .carousel-control-next {
+  width: 2.5rem;
+  height: 2.5rem;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(0,0,0,0.55);
+  border-radius: 50%;
+  opacity: 0; /* Ocultos por defecto... */
+  transition: opacity 0.3s ease;
+}
+
+.property-card__image-wrapper .carousel-control-prev { left: 0.75rem; }
+.property-card__image-wrapper .carousel-control-next { right: 0.75rem; }
+
+/* ...solo se muestran cuando pasas el mouse por encima de la foto (hover) */
+.property-card__image-wrapper:hover .carousel-control-prev:not(.d-none),
+.property-card__image-wrapper:hover .carousel-control-next:not(.d-none) {
+  opacity: 1;
+}

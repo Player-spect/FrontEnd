@@ -15,7 +15,7 @@ if (isset($_SESSION['user_id'])) {
     <meta name="keywords" content="iniciar sesión inmobiliaria, login PNK, acceso cuenta propiedades Coquimbo">
     <meta name="author" content="PNK Inmobiliaria">
     <meta name="robots" content="noindex, nofollow">
-    <link rel="canonical" href="https://www.pnk-inmobiliaria.cl/login.html">
+    <link rel="canonical" href="https://www.pnk-inmobiliaria.cl/login.php">
     <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
@@ -26,8 +26,8 @@ if (isset($_SESSION['user_id'])) {
     <nav aria-label="Navegación principal">
         <ul>
             <li><a href="../index.html">Inicio</a></li>
-            <li><a href="login.html" aria-current="page">Iniciar Sesión</a></li>
-            <li><a href="register/register-gestor.html">Registrar Gestor</a></li>
+            <li><a href="login.php" aria-current="page">Iniciar Sesión</a></li>
+            <li><a href="register/register-gestor.html">Registrar</a></li>
             <li><a href="register/register-propietario.html">Registrar Propietario</a></li>
         </ul>
     </nav>

@@ -7,17 +7,58 @@
     <title>PNK Inmobiliaria - Detalle de Propiedad</title>
     <meta name="description" content="Detalle de la propiedad seleccionada en La Serena con sector, precio e imagen.">
     <meta name="keywords" content="detalle propiedad, PNK Inmobiliaria, propiedad La Serena, precio sector descripcion">
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    
     <link rel="stylesheet" href="css/styles.css">
+    
+    <style>
+        .property-detail-carousel {
+            border-radius: 8px;
+            overflow: hidden;
+            margin-bottom: 20px;
+            background-color: #f8f9fa;
+        }
+        .property-detail-carousel .carousel-item {
+            height: 500px; /* Altura de las fotos en el detalle */
+        }
+        .property-detail-carousel img {
+            object-fit: cover;
+            height: 100%;
+            width: 100%;
+        }
+        /* Sombras para que se vean bien las flechas */
+        .property-detail-carousel .carousel-inner::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(90deg, rgba(0,0,0,0.15) 0%, transparent 15%, transparent 85%, rgba(0,0,0,0.15) 100%);
+            pointer-events: none;
+        }
+    </style>
 </head>
 <body>
 <a href="#main-content" class="skip-link">Saltar al contenido principal</a>
 
-<main id="main-content" role="main">
+<main id="main-content" role="main" class="container mt-4">
     <section aria-labelledby="detail-heading">
-        <h2 id="detail-heading">Detalle de Propiedad</h2>
+        <h2 id="detail-heading" class="mb-4">Detalle de Propiedad</h2>
 
         <div id="property-detail-card" class="property-detail-card hide" aria-live="polite">
-            <img id="detail-image" src="" alt="">
+            
+            <div id="propertyCarousel" class="carousel slide property-detail-carousel" data-bs-ride="false">
+                <div class="carousel-inner" id="carousel-inner-container">
+                    </div>
+                
+                <button class="carousel-control-prev d-none" id="carousel-prev" type="button" data-bs-target="#propertyCarousel" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true" style="background-color: rgba(0,0,0,0.5); border-radius: 50%; padding: 20px;"></span>
+                    <span class="visually-hidden">Anterior</span>
+                </button>
+                <button class="carousel-control-next d-none" id="carousel-next" type="button" data-bs-target="#propertyCarousel" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true" style="background-color: rgba(0,0,0,0.5); border-radius: 50%; padding: 20px;"></span>
+                    <span class="visually-hidden">Siguiente</span>
+                </button>
+            </div>
             <div class="property-detail-content">
                 <h3 class="property-detail-title" id="detail-title"></h3>
                 <div class="property-meta">
@@ -38,9 +79,9 @@
                     <span id="detail-patio"></span>
                     <span id="detail-piscina"></span>
                 </div>
-                <p class="property-description" id="detail-description"></p>
-                <p class="property-detail-actions">
-                    <a id="detail-back" href="login.php">Agendar una visita</a>
+                <p class="property-description mt-3" id="detail-description"></p>
+                <p class="property-detail-actions mt-4">
+                    <a id="detail-back" href="login.php" class="btn btn-primary">Agendar una visita</a>
                 </p>
             </div>
         </div>
@@ -53,9 +94,11 @@
     </section>
 </main>
 
-<footer role="contentinfo">
+<footer role="contentinfo" class="mt-5 text-center">
     <p>&copy; 2026 PNK Inmobiliaria. Todos los derechos reservados.</p>
 </footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 
 <script>
  document.addEventListener('DOMContentLoaded', async function() {
@@ -67,36 +110,72 @@
         const detailCard = document.getElementById('property-detail-card');
         const notFound = document.getElementById('property-not-found');
 
-        // Si alguien entra sin ID en la URL, mostramos error
         if (!propertyId) {
             notFound.classList.remove('hide');
             return;
         }
 
         try {
-            // Hacemos la consulta a nuestro nuevo endpoint
+            // CORRECCIÓN: Comillas invertidas añadidas
             const response = await fetch(`../../BackEnd/api/get_property_detail.php?id=${propertyId}`);
             const result = await response.json();
 
             if (response.ok && result.success) {
                 const prop = result.data;
 
-                // Configurar ruta de imagen
+                // CORRECCIÓN: Comillas invertidas añadidas
                 const imagenRuta = prop.main_image
                     ? `../uploads/propiedades/${prop.main_image}`
                     : '../assets/img/casa-serena.jpg';
 
-                // Formatear la fecha
                 const fecha = new Date(prop.fecha_publicacion);
                 const fechaFormat = !isNaN(fecha.getTime()) ? fecha.toLocaleDateString('es-CL') : prop.fecha_publicacion;
 
-                // Inyectar datos en el DOM
-                document.getElementById('detail-image').src = imagenRuta;
-                document.getElementById('detail-image').alt = `${prop.tipo} en ${prop.sector}`;
+                // ==========================================
+                // LÓGICA DEL CARRUSEL DE IMÁGENES
+                // ==========================================
+                const carouselInner = document.getElementById('carousel-inner-container');
+                const btnPrev = document.getElementById('carousel-prev');
+                const btnNext = document.getElementById('carousel-next');
+
+                // 1. Agregar la imagen principal (siempre la primera y activa)
+                // CORRECCIÓN: Comillas invertidas añadidas
+                carouselInner.innerHTML = `
+                    <div class="carousel-item active">
+                        <img src="${imagenRuta}" alt="${prop.tipo} en ${prop.sector}" class="d-block w-100" loading="lazy">
+                    </div>
+                `;
+
+                // 2. Buscar si hay imágenes extras en la base de datos
+                try {
+                    // CORRECCIÓN: Comillas invertidas añadidas
+                    const imgResponse = await fetch(`../../BackEnd/api/get_property_images.php?id=${propertyId}`);
+                    const imgResult = await imgResponse.json();
+
+                    if (imgResponse.ok && imgResult.success && imgResult.images.length > 0) {
+                        // Agregamos cada foto extra como un slide nuevo
+                        imgResult.images.forEach(imageSrc => {
+                            const item = document.createElement('div');
+                            item.className = 'carousel-item';
+                            // CORRECCIÓN: Comillas invertidas añadidas
+                            item.innerHTML = `<img src="../uploads/propiedades/${imageSrc}" class="d-block w-100" alt="Foto adicional" loading="lazy">`;
+                            carouselInner.appendChild(item);
+                        });
+
+                        // Como hay más de 1 foto, mostramos las flechitas
+                        btnPrev.classList.remove('d-none');
+                        btnNext.classList.remove('d-none');
+                    }
+                } catch (imgError) {
+                    console.error('Error cargando imágenes extras:', imgError);
+                }
+
+                // ==========================================
+                // LÓGICA DE TEXTOS Y DETALLES
+                // ==========================================
+                // CORRECCIÓN: Comillas invertidas añadidas a todas las inyecciones de texto
                 document.getElementById('detail-title').textContent = `${prop.tipo.toUpperCase()} - ${prop.sector}`;
                 document.getElementById('detail-sector').textContent = prop.sector;
-
-                // Precios y medidas
                 document.getElementById('detail-price').textContent = `CLP $${parseInt(prop.precio_clp).toLocaleString('es-CL')}`;
                 document.getElementById('detail-uf').textContent = `UF ${parseInt(prop.precio_uf).toLocaleString('es-CL')}`;
                 document.getElementById('detail-type').textContent = prop.tipo;
@@ -115,10 +194,8 @@
                 document.getElementById('detail-patio').textContent = prop.patio_trasero ? 'Patio trasero' : '';
                 document.getElementById('detail-piscina').textContent = prop.piscina ? 'Piscina' : '';
 
-                // Descripción larga
                 document.getElementById('detail-description').textContent = prop.descripcion;
 
-                // Mostrar la tarjeta
                 detailCard.classList.remove('hide');
             } else {
                 notFound.classList.remove('hide');

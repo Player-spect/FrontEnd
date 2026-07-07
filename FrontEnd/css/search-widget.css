@@ -2,6 +2,7 @@
 .pnk-search-widget {
   max-width: 720px;
   margin: 0.5rem auto;
+  margin-bottom: 6rem;
   position: relative;
   font-family: Arial, sans-serif;
 }
