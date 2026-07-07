@@ -30,6 +30,7 @@
 <main id="main-content" role="main">
     <section aria-labelledby="dashboard-heading">
         <h2 id="dashboard-heading">Dashboard</h2>
+        <?php include 'dashboard-search-widget.php'; ?>
         <div class="dashboard" role="region" aria-labelledby="dashboard-heading">
             <article class="card">
                 <h3>Registrar Propiedad</h3>
