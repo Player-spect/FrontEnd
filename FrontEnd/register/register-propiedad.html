@@ -54,7 +54,7 @@
         <div class="property-form-container">
         <div id="form-messages" role="alert" aria-live="assertive" aria-atomic="true" class="sr-only"></div>
 
-        <form id="register-propiedad-form" action="#" method="post" novalidate
+        <form id="register-propiedad-form" action="#" method="post" novalidate enctype="multipart/form-data"
               aria-labelledby="form-heading">
             <p class="sr-only">Los campos marcados con * son obligatorios.</p>
 
@@ -203,7 +203,7 @@
             <label for="fotos">
                 Fotografías: <span aria-hidden="true">*</span>
             </label>
-            <input type="file" id="fotos" name="fotos"
+            <input type="file" id="fotos" name="fotos[]"
                    accept="image/*" multiple required
                    aria-required="true"
                    aria-describedby="fotos-help">
@@ -289,7 +289,7 @@
                         form.appendChild(idInput);
 
                         // Hacemos que la foto no sea obligatoria al editar (para no borrarla si no suben una nueva)
-                        document.getElementById('fotos').required = false;
+                        document.getElementById('fotos[]').required = false;
                     }
                 });
         }

@@ -1,8 +1,8 @@
 <?php
 ini_set('display_errors', 0);
-define('DB_HOST', '127.0.0.1');
-define('DB_USER', 'root');
-define('DB_PASS', 'admin');
+define('DB_HOST', 'localhost');
+define('DB_USER', 'user_pnk');
+define('DB_PASS', 'psw');
 define('DB_NAME', 'pnk_inmobiliaria');
 
 function getConnection(){
@@ -17,4 +17,3 @@ function getConnection(){
 		die(json_encode(['error' => 'Error de Coneccion: ' . $e->getMessage()]));
 	}
 }
-?>

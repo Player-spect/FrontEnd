@@ -81,6 +81,10 @@ try {
                 $root_dir = dirname(__DIR__,2);
                 $upload_dir = $root_dir . '/uploads/propiedades/';
 
+		if (!is_dir($upload_dir)) {
+		        mkdir($upload_dir, 0755, true);
+			}
+
                 foreach($_FILES['fotos']['tmp_name'] as $key => $tmp_name){
                     if($_FILES['fotos']['error'][$key] === UPLOAD_ERR_OK){
                         $filename = uniqid('prop_' . $prop_id . '_') . '.jpg';
@@ -103,42 +107,123 @@ try {
             echo json_encode(['success' => true, 'message' => 'Propiedad creada exitosamente']);
             break;
 
-        case 'update':
-            // Actualizacion de Propiedad
-            $id = $_POST['id'];
-            $stmt = $conn->prepare("
-                UPDATE propiedades SET
-                    tipo = :tipo,
-                    descripcion = :desc,
-                    dormitorios = :dorm,
-                    banos = :banos,
-                    area_construida = :area_c,
-                    area_terreno = :area_t,
-                    precio_clp = :precio_clp,
-                    precio_uf = :precio_uf,
-                    provincia = :provincia,
-                    comuna = :comuna,
-                    sector = :sector
-                WHERE id = :id AND usuario_id = :user_id
-            ");
+      case 'update':
+          // Actualizacion de Propiedad
+          $id = $_POST['id'];
+          
+          // 1. Actualizar datos básicos
+          $stmt = $conn->prepare("
+              UPDATE propiedades SET
+                  tipo = :tipo,
+                  descripcion = :desc,
+                  dormitorios = :dorm,
+                  banos = :banos,
+                  area_construida = :area_c,
+                  area_terreno = :area_t,
+                  precio_clp = :precio_clp,
+                  precio_uf = :precio_uf,
+                  provincia = :provincia,
+                  comuna = :comuna,
+                  sector = :sector,
+                  solicitar_visita = :visita,
+                  bodega = :bodega,
+                  estacionamiento = :estac,
+                  logia = :logia,
+                  cocina_amoblada = :cocina,
+                  antejardin = :ante,
+                  patio_trasero = :patio,
+                  piscina = :piscina
+              WHERE id = :id AND usuario_id = :user_id
+          ");
 
-            $stmt->execute([
-                    'tipo' => $_POST['tipo'],
-                    'desc' => $_POST['descripcion'],
-                    'dorm' => $_POST['dormitorios'],
-                    'banos' => $_POST['banos'],
-                    'area_c' => $_POST['area-construida'],
-                    'area_t' => $_POST['area-terreno'],
-                    'precio_clp' => $_POST['precio-clp'],
-                    'precio_uf' => $_POST['precio-uf'],
-                    'provincia' => $_POST['provincia'],
-                    'comuna' => $_POST['comuna'],
-                    'sector' => $_POST['sector'],
-                    'id' => $id,
-                    'user_id' => $_SESSION['user_id']
-                ]);
-            echo json_encode(['success' => true, 'message' => 'Propiedad actualizada exitosamente']);
-            break;
+          $stmt->execute([
+              'tipo' => $_POST['tipo'],
+              'desc' => $_POST['descripcion'],
+              'dorm' => $_POST['dormitorios'],
+              'banos' => $_POST['banos'],
+              'area_c' => $_POST['area-construida'],
+              'area_t' => $_POST['area-terreno'],
+              'precio_clp' => $_POST['precio-clp'],
+              'precio_uf' => $_POST['precio-uf'],
+              'provincia' => $_POST['provincia'],
+              'comuna' => $_POST['comuna'],
+              'sector' => $_POST['sector'],
+              'visita' => isset($_POST['solicitar-visita']) ? 1 : 0,
+              'bodega' => isset($_POST['bodega']) ? 1 : 0,
+              'estac' => isset($_POST['estacionamiento']) ? 1 : 0,
+              'logia' => isset($_POST['logia']) ? 1 : 0,
+              'cocina' => isset($_POST['cocina-amoblada']) ? 1 : 0,
+              'ante' => isset($_POST['antejardin']) ? 1 : 0,
+              'patio' => isset($_POST['patio-trasero']) ? 1 : 0,
+              'piscina' => isset($_POST['piscina']) ? 1 : 0,
+              'id' => $id,
+              'user_id' => $_SESSION['user_id']
+          ]);
+
+          // 2. Lógica para subir NUEVAS imágenes si existen
+          if(isset($_FILES['fotos']) && is_array($_FILES['fotos']['name'])){
+              $root_dir = dirname(__DIR__, 2);
+              $upload_dir = $root_dir . '/uploads/propiedades/';
+
+              // Asegurar que el directorio existe
+              if (!is_dir($upload_dir)) {
+                  mkdir($upload_dir, 0755, true);
+              }
+
+              // Contador para saber cuántas imágenes ya existen y asignar el orden correcto
+              $stmt_count = $conn->prepare("SELECT COUNT(*) as count FROM fotos_propiedad WHERE propiedad_id = :prop_id");
+              $stmt_count->execute(['prop_id' => $id]);
+              $current_count = $stmt_count->fetch(PDO::FETCH_ASSOC)['count'];
+              $order_index = $current_count;
+
+              foreach($_FILES['fotos']['tmp_name'] as $key => $tmp_name){
+                  // Verificar si hay un error en la subida
+                  if($_FILES['fotos']['error'][$key] === UPLOAD_ERR_OK){
+                      
+                      // Validar tipo de archivo (Seguridad)
+                      $finfo = new finfo(FILEINFO_MIME_TYPE);
+                      $mime = $finfo->file($tmp_name);
+                      $allowed_mimes = ['image/jpeg', 'image/png', 'image/webp', 'image/gif'];
+                      
+                      if(!in_array($mime, $allowed_mimes)){
+                          continue; // Saltar archivo no válido
+                      }
+
+                      // Obtener extensión correcta
+                      $ext = pathinfo($_FILES['fotos']['name'][$key], PATHINFO_EXTENSION);
+                      if(empty($ext)){
+                          if($mime == 'image/jpeg') $ext = 'jpg';
+                          elseif($mime == 'image/png') $ext = 'png';
+                          elseif($mime == 'image/webp') $ext = 'webp';
+                          else $ext = 'jpg';
+                      }
+
+                      $filename = uniqid('prop_' . $id . '_') . '.' . $ext;
+                      
+                      if(move_uploaded_file($tmp_name, $upload_dir . $filename)){
+                          // Insertar en la base de datos
+                          $stmt_img = $conn->prepare("
+                              INSERT INTO fotos_propiedad(propiedad_id, ruta, es_principal, orden)
+                              VALUES(:prop_id, :ruta, :principal, :orden)
+                          ");
+
+                          // La primera imagen subida en esta edición será principal SOLO si no hay ninguna antes
+                          $es_principal = ($current_count === 0 && $key === 0) ? 1 : 0;
+
+                          $stmt_img->execute([
+                             'prop_id' => $id,
+                             'ruta' => $filename,
+                             'principal' => $es_principal,
+                             'orden' => $order_index++
+                          ]);
+                      }
+                  }
+              }
+          }
+
+          echo json_encode(['success' => true, 'message' => 'Propiedad actualizada exitosamente']);
+          break;
+
 
         case 'delete':
             // Eliminacion de Propiedad
@@ -166,6 +251,7 @@ try {
             ]);
             echo json_encode(['success' => true, 'message' => 'Propiedad eliminada exitosamente']);
             break;
+
         default:
             echo json_encode(['success' => false, 'message' => 'Accion no valida']);
             http_response_code(400);

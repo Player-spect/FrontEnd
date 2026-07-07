@@ -11,17 +11,6 @@
 </head>
 <body>
 <a href="#main-content" class="skip-link">Saltar al contenido principal</a>
-<header role="banner">
-    <h1>PNK Inmobiliaria</h1>
-    <nav aria-label="Navegación principal">
-        <ul>
-            <li><a href="../index.html">Inicio</a></li>
-            <li><a href="login.php">Iniciar Sesión</a></li>
-            <li><a href="register/register-gestor.html">Registrar Gestor</a></li>
-            <li><a href="register/register-propietario.html">Registrar Propietario</a></li>
-        </ul>
-    </nav>
-</header>
 
 <main id="main-content" role="main">
     <section aria-labelledby="detail-heading">
@@ -94,7 +83,7 @@
 
                 // Configurar ruta de imagen
                 const imagenRuta = prop.main_image
-                    ? `uploads/propiedades/${prop.main_image}`
+                    ? `../uploads/propiedades/${prop.main_image}`
                     : '../assets/img/casa-serena.jpg';
 
                 // Formatear la fecha

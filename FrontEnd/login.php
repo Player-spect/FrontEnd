@@ -151,7 +151,7 @@ if (isset($_SESSION['user_id'])) {
 </script>
 <script>
     document.addEventListener('DOMContentLoaded', async () => {
-        const response = await fetch('../../BackEnd/api/check_session.php');
+        const response = await fetch('../../BackEnd/api/session_checker.php');
         const data = await response.json();
 
         if (data.logged_in) {
